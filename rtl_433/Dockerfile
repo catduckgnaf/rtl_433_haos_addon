@@ -30,7 +30,6 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \ tzdata \ libressl
-    sed
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
