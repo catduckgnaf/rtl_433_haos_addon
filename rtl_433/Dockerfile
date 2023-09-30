@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base
 FROM $BUILD_FROM as builder
 
 ENV LANG C.UTF-8
