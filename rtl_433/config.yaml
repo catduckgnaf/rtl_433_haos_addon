@@ -1,0 +1,39 @@
+name: rtl_433_discovery
+version: "0.0.1"
+slug: rtl433hadiscovery
+description: rtl_433 for Home Assistant
+url: "https://github.com/catduckgnaf/rtl_433_haos_addon"
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+init: false
+services:
+  - mqtt:want
+usb: true
+udev: true
+map:
+  - share:rw
+  - config:rw
+options:
+  mqtt_host: ""
+  mqtt_port: 1883
+  mqtt_user: ""
+  mqtt_password: ""
+  retain: true
+  rtl_433_conf_file: ""
+  force_update: false
+  log_level: "default"
+schema:
+  mqtt_host: str
+  mqtt_port: int
+  mqtt_user: str
+  mqtt_password: str
+  retain: bool
+  rtl_433_conf_file: "str"
+  log_level: str
+
+
+
