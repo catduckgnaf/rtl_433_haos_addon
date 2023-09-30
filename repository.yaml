@@ -1,4 +1,4 @@
-# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: Example Home Assistant add-on repository
-url: 'https://github.com/home-assistant/addons-example'
-maintainer: Awesome Maintainer <awesome@example.com>
+
+name: rtl_433 Home Assistant Add On - Community Edition
+url: 'https://github.com/catduckgnaf/rtl_433_haos_addon'
+maintainer: catduck
