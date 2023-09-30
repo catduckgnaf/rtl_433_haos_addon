@@ -1,7 +1,7 @@
-name: rtl_433_discovery
+name: rtl_433_haos_addon
 version: "0.0.1"
-slug: rtl433hadiscovery
-description: rtl_433 for Home Assistant
+slug: rtl433haosaddon
+description: rtl_433 HAOS Addon Community Edition
 url: "https://github.com/catduckgnaf/rtl_433_haos_addon"
 arch:
   - armhf
