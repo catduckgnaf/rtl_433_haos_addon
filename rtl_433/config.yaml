@@ -32,7 +32,7 @@ schema:
   mqtt_user: str
   mqtt_password: str
   retain: bool
-  rtl_433_conf_file: "str"
+  rtl_433_conf_file: str
   log_level: str
 
 

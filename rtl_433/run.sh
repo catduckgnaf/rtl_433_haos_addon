@@ -1,6 +1,8 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
+script_directory="/config/rtl_433/scripts"
+
 
 if bashio::services.available "mqtt"; then
     host=$(bashio::services "mqtt" "host")
@@ -17,6 +19,12 @@ if [ ! -d $conf_directory ]
 then
     mkdir -p $conf_directory
 fi
+
+if [ ! -d $script_directory ]
+then
+    mkdir -p $script_directory
+fi
+
 
 # Check if the legacy configuration file is set and alert that it's deprecated.
 conf_file=$(bashio::config "rtl_433_conf_file")
