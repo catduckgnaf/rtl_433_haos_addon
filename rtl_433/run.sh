@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
-scripts_directory="/config/rtl_433/scripts
+scripts_directory="/config/rtl_433/scripts"
 
 if bashio::services.available "mqtt"; then
     host=$(bashio::services "mqtt" "host")
