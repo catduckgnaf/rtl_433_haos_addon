@@ -1,6 +1,6 @@
 name: rtl_433
 image: ghcr.io/catduckgnaf/rtl_433-hass-addon-rtl_433-{arch}
-version: 0.2.1
+version: 0.2.0
 slug: rtl433
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 url: https://github.com/catduckgnaf/rtl_433-hass-addons/tree/main/rtl_433
@@ -18,6 +18,8 @@ services:
 usb: true
 udev: true
 options:
+  rtl_433_conf_file: ''
   retain: true
 schema:
+  rtl_433_conf_file: str?
   retain: bool
