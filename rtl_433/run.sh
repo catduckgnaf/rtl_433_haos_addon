@@ -1,7 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
-scripts_directory="/config/rtl_433/scripts"
 
 if bashio::services.available "mqtt"; then
     host=$(bashio::services "mqtt" "host")
@@ -18,13 +17,6 @@ if [ ! -d $conf_directory ]
 then
     mkdir -p $conf_directory
 fi
-
-if [ ! -d $scripts_directory ]
-then
-    mkdir -p $scripts_directory
-fi
-
-
 
 # Check if the legacy configuration file is set and alert that it's deprecated.
 conf_file=$(bashio::config "rtl_433_conf_file")
@@ -43,7 +35,7 @@ fi
 if [ ! "$(ls -A $conf_directory)" ]
 then
     cat > $conf_directory/rtl_433.conf.template <<EOD
-# This is an empty template for configuring rtl_433. mqtt information will be
+# This is a template for configuring rtl_433. mqtt information will be
 # automatically added. Create multiple files ending in '.conf.template' to
 # manage multiple rtl_433 radios, being sure to set the 'device' setting. The
 # device must be set before mqtt output lines.
@@ -309,7 +301,6 @@ output kv
   protocol -186 # Hyundai TPMS (VDO)
   protocol -201 # Unbranded SolarTPMS for trucks
   protocol -203 #Porsche Boxster/Cayman TPMS
-
 EOD
 fi
 
