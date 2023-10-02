@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
+scripts_directory="/config/rtl_433/scripts
 
 if bashio::services.available "mqtt"; then
     host=$(bashio::services "mqtt" "host")
@@ -16,6 +17,11 @@ fi
 if [ ! -d $conf_directory ]
 then
     mkdir -p $conf_directory
+fi
+
+if [ ! -d $scripts_directory ]
+then
+    mkdir -p $scripts_directory
 fi
 
 # Check if the legacy configuration file is set and alert that it's deprecated.
@@ -51,7 +57,7 @@ output mqtt://\${host}:\${port},user=\${username},pass=\${password},retain=\${re
 
 # Uncomment the following line to also enable the default "table" output to the
 # addon logs.
-# output kv
+output kv
 
 # Everything is disabled by default. Simply remove the  "-" before the protocol number to enable.
 
