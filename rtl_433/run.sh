@@ -40,17 +40,14 @@ fi
 if [ ! "$(ls -A $conf_directory)" ]
 then
     cat > $conf_directory/rtl_433.conf.template <<EOD
-
-
 # READ THIS!!!!!!!
-## Everything is disabled by default. Simply remove the  "-" before the protocol number to enable.
-## Yes Leave the naming rtl_433.conf.template. Replace the existing one after install. Do not place before install. 
-## Yes I plan to make this more automated and for this version to be installed automatically.
-## This will prevent the discovery script for finding all the things we don't want.
-## Please consider contrubiting to the discovery script with other types of sensors that HA users want.
+# Everything is disabled by default. Simply remove the  "-" before the protocol number to enable.
+# Yes Leave the naming rtl_433.conf.template. Replace the existing one after install. Do not place before install. 
+# Yes I plan to make this more automated and for this version to be installed automatically.
+# This will prevent the discovery script for finding all the things we don't want.
+# Please consider contrubiting to the discovery script with other types of sensors that HA users want.
 
-# This is an empty template for configuring rtl_433. mqtt information will be
-# automatically added. Create multiple files ending in '.conf.template' to
+# mqtt information will be automatically added. Create multiple files ending in '.conf.template' to
 # manage multiple rtl_433 radios, being sure to set the 'device' setting. The
 # device must be set before mqtt output lines.
 # https://github.com/merbanan/rtl_433/blob/master/conf/rtl_433.example.conf
