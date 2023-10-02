@@ -1,5 +1,5 @@
 name: rtl_433_haos_addon
-version: "0.0.5"
+version: "0.0.6"
 slug: rtl433haosaddon
 description: rtl_433 HAOS Addon Community Edition
 url: "https://github.com/catduckgnaf/rtl_433_haos_addon"
@@ -35,5 +35,6 @@ schema:
   rtl_433_conf_file: str
   log_level: str
 
+image: "ghcr.io/catduckgnaf/{arch}-rtl-433-haos-addon"
 
 
