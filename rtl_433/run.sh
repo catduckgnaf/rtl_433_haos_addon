@@ -24,11 +24,6 @@ then
     mkdir -p $scripts_directory
 fi
 
-if [ ! -d $scripts_directory/rtl_433_mqtt_hass.py ]
-then
-    wget $scripts_directory/rtl_433_mqtt_hass.py
-fi
-
 
 
 # Check if the legacy configuration file is set and alert that it's deprecated.
