@@ -33,7 +33,8 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
-    sed
+    sed \
+    paho-mqtt 
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
