@@ -1,6 +1,5 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
 FROM $BUILD_FROM as builder
-MAINTAINER pbkhrv@pm.me
 
 ENV LANG C.UTF-8
 
