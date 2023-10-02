@@ -31,10 +31,9 @@ FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-RUN apk add --no-cache libusb \
-    librtlsdr \
-    sed \
-    paho-mqtt 
+RUN apk add --no-cache libusb-dev \
+    librtlsdr-dev \
+    sed
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
