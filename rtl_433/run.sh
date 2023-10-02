@@ -19,12 +19,6 @@ then
     mkdir -p $conf_directory
 fi
 
-if [ ! -d $scripts_directory ]
-then
-    mkdir -p $scripts_directory
-fi
-
-
 # Check if the legacy configuration file is set and alert that it's deprecated.
 conf_file=$(bashio::config "rtl_433_conf_file")
 
