@@ -68,7 +68,6 @@ output kv
 
 
 # Everything is disabled by default. Simply remove the  "-" before the protocol number to enable.
-
   protocol -1   # Silvercrest Remote Control
   protocol -2   # Rubicson, TFA 30.3197 or InFactory PT-310 Temperature Sensor
   protocol -3   # Prologue, FreeTec NC-7104, NC-7159-675 temperature sensor
