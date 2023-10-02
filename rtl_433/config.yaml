@@ -18,7 +18,7 @@ services:
 usb: true
 udev: true
 options:
-  rtl_433_conf_file: ''
+  rtl_433_conf_file: ""
   retain: true
 schema:
   rtl_433_conf_file: str?
