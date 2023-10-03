@@ -19,10 +19,7 @@ then
     mkdir -p $conf_directory
 fi
 
-
     echo "Starting rtl_433 with $conf_file..."
-    rtl_433 -c "/config/rtl_433/$conf_file" > >(sed -u "s/^/[$tag] /") 2> >(>&2 sed -u "s/^/[$tag] /")&
-    rtl_433_pids+=($!)
-done
+    rtl_433 -c "/config/rtl_433/$conf_file"
 
 wait -n ${rtl_433_pids[*]}
