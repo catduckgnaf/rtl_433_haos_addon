@@ -20,9 +20,9 @@ then
 fi
 
 
-    echo "Starting rtl_433 with $live..."
-    tag=$($live .conf)
-    rtl_433 -c "$live" > >(sed -u "s/^/[$tag] /") 2> >(>&2 sed -u "s/^/[$tag] /")&
+    echo "Starting rtl_433 with $conf_file..."
+    tag=$($conf_file)
+    rtl_433 -c "$conf_file" > >(sed -u "s/^/[$tag] /") 2> >(>&2 sed -u "s/^/[$tag] /")&
     rtl_433_pids+=($!)
 done
 
