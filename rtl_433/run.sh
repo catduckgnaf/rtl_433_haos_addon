@@ -41,9 +41,6 @@ else
   if bashio::config.true "mqtt_retain"; then
     OTHER_ARGS="${OTHER_ARGS} --retain"
   fi
-  if bashio::config.true "force_update"; then
-    OTHER_ARGS="${OTHER_ARGS} --force_update"
-  fi
 
   LOG_LEVEL=$(bashio::config "log_level")
   if [[ $LOG_LEVEL == "quiet" ]]; then
@@ -59,8 +56,11 @@ then
     mkdir -p $conf_directory
 fi
 
-    echo "Starting rtl_433 with $conf_file..."
-    rtl_433 -c "/config/rtl_433/$conf_file" -F log -H $MQTT_HOST -p $MQTT_PORT -R "$RTL_TOPIC" -D "$DISCOVERY_PREFIX" -i $DISCOVERY_INTERVAL $OTHER_ARGS
+    echo "Starting rtl_433 with $conf_file..."mqtt://$MQTT_HOST:$MQTT_PORT,user=$MQTT_USERNAME,pass=$MQTT_PASSWORD,retain=0,devices=rtl_433[/id]"
+    rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://$MQTT_HOST:$MQTT_PORT,user=$MQTT_USERNAME,pass=$MQTT_PASSWORD,retain=0,devices=rtl_433[/id]"
 
 wait -n ${rtl_433_pids[*]}
+
+
+
 
