@@ -60,10 +60,7 @@ then
 fi
 
     echo "Starting rtl_433 with $conf_file..."
-    rtl_433 -c "/config/rtl_433/$conf_file" -F log
-
-    tag=$(basename "$conf_file")
-    rtl_433 -c "$conf_file" -H $MQTT_HOST -p $MQTT_PORT -R "$RTL_TOPIC" -D "$DISCOVERY_PREFIX" -i $DISCOVERY_INTERVAL $OTHER_ARGS
-done
+    rtl_433 -c "/config/rtl_433/$conf_file" -F log -H $MQTT_HOST -p $MQTT_PORT -R "$RTL_TOPIC" -D "$DISCOVERY_PREFIX" -i $DISCOVERY_INTERVAL $OTHER_ARGS
 
 wait -n ${rtl_433_pids[*]}
+
