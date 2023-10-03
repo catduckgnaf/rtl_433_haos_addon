@@ -19,11 +19,6 @@ then
     mkdir -p $conf_directory
 fi
 
-if [ ! -f $conf_directory/$conf_file ]
-    echo "Starting rtl_433 -c $conf_file"
-    rtl_433 -c "$conf_file"
-    exit $?
-fi
 
     echo "Starting rtl_433 with $live..."
     tag=$($live .conf)
