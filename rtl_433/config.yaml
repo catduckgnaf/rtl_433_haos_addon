@@ -27,7 +27,6 @@ options:
   rtl_topic: "rtl_433/+/events"
   discovery_prefix: "homeassistant"
   discovery_interval: 600
-  force_update: false
   log_level: "default"
 schema:
   mqtt_host: str
@@ -38,6 +37,5 @@ schema:
   rtl_topic: str
   discovery_prefix: str
   discovery_interval: int
-  force_update: bool
   log_level: list(default|quiet|debug)
 
