@@ -20,6 +20,6 @@ then
 fi
 
     echo "Starting rtl_433 with $conf_file..."
-    rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://core-mosquitto:1883,retain=0,devices=rtl_433[/id]"
+    rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://$host:$port,retain=0,devices=rtl_433[/id]"
 
 wait -n ${rtl_433_pids[*]}

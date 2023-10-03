@@ -19,9 +19,9 @@ services:
 usb: true
 udev: true
 options:
-  mqtt_host: ""
+  mqtt_host: "core-mosquitto"
   mqtt_port: 1883
-  mqtt_user: ""
+  mqtt_user: "addons"
   mqtt_password: ""
   retain: false
   rtl_topic: "rtl_433/+/events"
