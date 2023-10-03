@@ -3,52 +3,15 @@
 conf_directory="/config/rtl_433"
 conf_file="rtl_433.conf"
 
-if [ ! -z ${MQTT_HOST+x} ]; then
-  echo "Running in stand-alone docker mode"
-  MQTT_PORT="${MQTT_PORT:-1883}"
-  RTL_TOPIC="${RTL_TOPIC:-rtl_433/+/events}"
-  DISCOVERY_PREFIX="${DISCOVERY_PREFIX:-homeassistant}"
-  DISCOVERY_INTERVAL="${DISCOVERY_INTERVAL:-600}"
-  OTHER_ARGS="${OTHER_ARGS-}"
-
-  LOG_LEVEL="${LOG_LEVEL-}"
-  if [[ $LOG_LEVEL == "quiet" ]]; then
-    OTHER_ARGS="${OTHER_ARGS} --quiet"
-  fi
-  if [[ $LOG_LEVEL == "debug" ]]; then
-    OTHER_ARGS="${OTHER_ARGS} --debug"
-  fi
+if bashio::services.available "mqtt"; then
+    host=$(bashio::services "mqtt" "host")
+    password=$(bashio::services "mqtt" "password")
+    port=$(bashio::services "mqtt" "port")
+    username=$(bashio::services "mqtt" "username")
+    retain=$(bashio::config "retain")
 else
-  if bashio::services.available mqtt; then
-    echo "mqtt found in this Home Assistance instance."
-    MQTT_HOST=$(bashio::services mqtt "host")
-    MQTT_PORT=$(bashio::services mqtt "port")
-    export MQTT_USERNAME=$(bashio::services mqtt "username")
-    export MQTT_PASSWORD=$(bashio::services mqtt "password")
-  else
-    echo "Using an external mqtt broker."
-    MQTT_HOST=$(bashio::config "mqtt_host")
-    MQTT_PORT=$(bashio::config "mqtt_port")
-    export MQTT_USERNAME=$(bashio::config "mqtt_user")
-    export MQTT_PASSWORD=$(bashio::config "mqtt_password")
-  fi
-
-  RTL_TOPIC=$(bashio::config "rtl_topic")
-  DISCOVERY_PREFIX=$(bashio::config "discovery_prefix")
-  DISCOVERY_INTERVAL=$(bashio::config "discovery_interval")
-
-  OTHER_ARGS=""
-  if bashio::config.true "mqtt_retain"; then
-    OTHER_ARGS="${OTHER_ARGS} --retain"
-  fi
-
-  LOG_LEVEL=$(bashio::config "log_level")
-  if [[ $LOG_LEVEL == "quiet" ]]; then
-    OTHER_ARGS="${OTHER_ARGS} --quiet"
-  fi
-  if [[ $LOG_LEVEL == "debug" ]]; then
-    OTHER_ARGS="${OTHER_ARGS} --debug"
-  fi
+    bashio::log.info "The mqtt addon is not available."
+    bashio::log.info "Manually update the output line in the configuration file with mqtt connection settings, and restart the addon."
 fi
 
 if [ ! -d $conf_directory ]
@@ -56,11 +19,7 @@ then
     mkdir -p $conf_directory
 fi
 
-    echo "Starting rtl_433 with $conf_file..."mqtt://$MQTT_HOST:$MQTT_PORT,user=$MQTT_USERNAME,pass=$MQTT_PASSWORD,retain=0,devices=rtl_433[/id]"
-    rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://$MQTT_HOST:$MQTT_PORT,user=$MQTT_USERNAME,pass=$MQTT_PASSWORD,retain=0,devices=rtl_433[/id]"
+    echo "Starting rtl_433 with $conf_file..."
+    rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://core-mosquitto:1883,retain=0,devices=rtl_433[/id]"
 
 wait -n ${rtl_433_pids[*]}
-
-
-
-
