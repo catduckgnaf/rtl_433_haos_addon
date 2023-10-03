@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
+conf_file="rtl_433.conf"
 
 if bashio::services.available "mqtt"; then
     host=$(bashio::services "mqtt" "host")
