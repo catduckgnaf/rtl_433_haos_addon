@@ -1,3 +1,18 @@
+
+# do not use, work in progress
+
+
+
+
+
+
+
+
+
+
+
+
+
 # This is the Add On Repository for the rtl_433_haos_autodiscovery Community Edition!
 
 
