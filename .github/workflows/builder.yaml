@@ -1,7 +1,7 @@
 name: Builder
 
 env:
-  MONITORED_FILES: "build.yaml config.json Dockerfile rootfs run.sh"
+  MONITORED_FILES: "build.yaml config.yaml Dockerfile run.sh"
   REGISTRY: ghcr.io
 
 on:
@@ -70,7 +70,7 @@ jobs:
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
       matrix:
-        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+        ddon: ${{ fromJson(needs.init.outputs.changed_addons) }}
         arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
 
     steps:
