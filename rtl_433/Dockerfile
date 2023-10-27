@@ -3,7 +3,7 @@ FROM $BUILD_FROM as builder
 
 ENV LANG C.UTF-8
 
-# Copied with https://github.com/hertzg/rtl_433_docker/blob/master/images/debian/build-context/Dockerfile
+# Copied with minor edits from https://github.com/hertzg/rtl_433_docker/blob/master/images/alpine/build-context/Dockerfile
 RUN apk add --no-cache --virtual .buildDeps \
     build-base \
     libusb-dev \
@@ -17,7 +17,7 @@ RUN git clone https://github.com/merbanan/rtl_433
 WORKDIR ./rtl_433
 
 # Build a specific commit or tag.
-ARG rtl433GitRevision=22.11
+ARG rtl433GitRevision=master
 RUN git checkout ${rtl433GitRevision}
 WORKDIR ./build
 RUN cmake ..
@@ -31,8 +31,8 @@ FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-RUN apk add --no-cache libusb \
-    librtlsdr \
+RUN apk add --no-cache libusb-dev \
+    librtlsdr-dev \
     sed
 WORKDIR /root
 COPY --from=builder /build/root/ /
