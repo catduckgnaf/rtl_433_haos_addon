@@ -1,7 +1,7 @@
 name: Builder
 
 env:
-  MONITORED_FILES: "build.yaml config.yaml Dockerfile rootfs run.sh"
+  MONITORED_FILES: "build.yaml config.json Dockerfile rootfs run.sh"
   REGISTRY: ghcr.io
 
 on:
