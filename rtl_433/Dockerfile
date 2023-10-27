@@ -4,15 +4,12 @@ FROM $BUILD_FROM as builder
 ENV LANG C.UTF-8
 
 # Copied with https://github.com/hertzg/rtl_433_docker/blob/master/images/debian/build-context/Dockerfile
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    git \
-    libusb-1.0-0-dev \
-    libsoapysdr-dev \
-    libssl-dev \
+RUN apk add --no-cache --virtual .buildDeps \
+    build-base \
+    libusb-dev \
     librtlsdr-dev \
- && rm -rf /var/lib/apt/lists/*
+    cmake \
+    git
 
 WORKDIR /build
 
@@ -20,29 +17,23 @@ RUN git clone https://github.com/merbanan/rtl_433
 WORKDIR ./rtl_433
 
 # Build a specific commit or tag.
-ARG rtl433GitRevision=master
+ARG rtl433GitRevision=22.11
 RUN git checkout ${rtl433GitRevision}
 WORKDIR ./build
-RUN cmake -DENABLE_OPENSSL=ON ..
-RUN make
-RUN cat Makefile
+RUN cmake ..
+RUN make -j 4
+
 WORKDIR /build/root
 WORKDIR /build/rtl_433/build
 RUN make DESTDIR=/build/root/ install
-RUN ls -lah /build/root
-
 
 FROM $BUILD_FROM
 
+ENV LANG C.UTF-8
 
-RUN apt-get update && apt-get install -y \
-    libusb-1.0-0 \
-    librtlsdr0 \
-    '^libsoapysdr0\.[6-8]$' \
-    '^libssl(1\.1|3)$' \
-    '^soapysdr0\.[6-8]-module-all$' \
- && rm -rf /var/lib/apt/lists/*WORKDIR /root
-
+RUN apk add --no-cache libusb \
+    librtlsdr \
+    sed
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
