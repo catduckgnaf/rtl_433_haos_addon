@@ -17,7 +17,7 @@ RUN git clone https://github.com/merbanan/rtl_433
 WORKDIR ./rtl_433
 
 # Build a specific commit or tag.
-ARG rtl433GitRevision=master
+ARG rtl433GitRevision=22.11
 RUN git checkout ${rtl433GitRevision}
 WORKDIR ./build
 RUN cmake ..
@@ -28,8 +28,6 @@ WORKDIR /build/rtl_433/build
 RUN make DESTDIR=/build/root/ install
 
 FROM $BUILD_FROM
-
-ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
