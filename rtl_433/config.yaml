@@ -20,8 +20,8 @@ usb: true
 udev: true
 options:
   output_options: "websocket"
-  ws_http_host: "192.168.0.208"
-  ws_http_port: "8433"
+  ws_http_host: "127.0.0.1"
+  ws_http_port: 8433
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_user: "addons"
