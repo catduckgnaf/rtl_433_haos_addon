@@ -1,6 +1,6 @@
 name: rtl_433
 image: ghcr.io/catduckgnaf/rtl_433_haos_addon-rtl_433-{arch}
-version: 0.2.7
+version: 0.2.8
 slug: rtl433
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
@@ -19,6 +19,9 @@ services:
 usb: true
 udev: true
 options:
+  output_options: "websocket"
+  ws_http_host: "192.168.0.208"
+  ws_http_port: "8433"
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_user: "addons"
@@ -29,6 +32,9 @@ options:
   discovery_interval: 600
   log_level: "default"
 schema:
+  output_options: list(websocket|mqtt|udp)
+  ws_http_host: str
+  ws_http_port: int
   mqtt_host: str
   mqtt_port: int
   mqtt_user: str
