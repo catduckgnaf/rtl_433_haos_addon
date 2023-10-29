@@ -26,7 +26,7 @@ To see the "main" page the project work, go here: https://github.com/catduckgnaf
 
 # Why?
 
-I believe the community needs to own this script, to make modifications, and add things we want without the baggage of the existing rtl_433 codebase. For example the current add-on links directly to the 433 project, so when they make a breaking change there is no control, and the project is so large, nobody has put effort to improve the script. Many HA users want contact and door sensors, and are manually doing mqtt instead. I don't want weather sensors, I want door sensors! (weather sensors are there too
+I believe the community needs to own this script, to make modifications, and add things we want without the baggage of the existing rtl_433 codebase. For example the current add-on links directly to the 433 project, so when they make a breaking change there is no control, and the project is so large, nobody has put effort to improve the script. Many HA users want contact and door sensors, and are manually doing mqtt instead. I don't want weather sensors, I want door sensors!
 
 ## RTL_433 Add-On Community Edition
 
