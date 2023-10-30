@@ -8,7 +8,7 @@ if [ ! -d "$conf_directory" ]; then
 fi
 
 if [ ! -f "$conf_directory/$conf_file" ]; then
-    wget -P "$conf_directory" "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433.conf"
+    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433.conf -O "$conf_directory/$conf_file"
 fi
 
 if output_options=$(bashio::config "websocket"); then
@@ -24,7 +24,7 @@ else
         username=$(bashio::services "mqtt" "username")
         retain=$(bashio::config "retain")
         echo "Starting rtl_433 with MQTT Option $conf_file..."
-        rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://$host:$port,retain=0,devices=rtl_433[/id]"
+        rtl_433 -c "/config/rtl_433/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
     fi
 fi
 
