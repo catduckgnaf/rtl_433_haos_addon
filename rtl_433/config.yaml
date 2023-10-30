@@ -18,6 +18,7 @@ services:
 usb: true
 udev: true
 options:
+  rtl_433_conf_file": ""
   output_options: "websocket"
   ws_http_host: "127.0.0.1"
   ws_http_port: 8433
@@ -31,6 +32,7 @@ options:
   discovery_interval: 600
   log_level: "default"
 schema:
+  rtl_433_conf_file": str
   output_options: list(websocket|mqtt|udp)
   ws_http_host: str
   ws_http_port: int
