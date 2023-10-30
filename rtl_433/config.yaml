@@ -31,17 +31,17 @@ options:
   discovery_interval: 600
   log_level: "default"
 schema:
-  rtl_433_conf_file": str
+  rtl_433_conf_file": "str?"
   output_options: list(websocket|mqtt|udp)
-  ws_http_host: str
+  ws_http_host: "str?"
   ws_http_port: int
-  mqtt_host: str
+  mqtt_host: "str?"
   mqtt_port: int
-  mqtt_user: str
-  mqtt_password: str
+  mqtt_user: "str?"
+  mqtt_password: "str?"
   retain: bool
   rtl_topic: str
-  discovery_prefix: str
+  discovery_prefix: "str?"
   discovery_interval: int
   log_level: list(default|quiet|debug)
 
