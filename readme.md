@@ -1,20 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # This is the Add On Repository for the rtl_433_haos_addon Community Edition!
-
 
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/catduckgnaf/rtl_433_haos_addon/)
@@ -31,6 +15,11 @@ I believe the community needs to own this script, to make modifications, and add
 ## RTL_433 Add-On Community Edition
 
 By Default all IDs are disabled in the config file. They have a description next to them, so you can simply remove the "-" for the ones you want
+
+
+# Updates
+
+realses track the "Next" Branch, but on a rolling release schedule. This allows the community to get the "latest" releases, but still have updates, (not needing to unstintall and reinstall). Also by exerting more control, we can make sure no breaking changes. 
 
 
 ## Pre-requesites and instructions:
