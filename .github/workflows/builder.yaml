@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         arch: [armhf, armv7, aarch64, amd64, i386]
-        addon: [rtl_433, rtl_433-next]
+        addon: [rtl_433]
 
     steps:
     - name: Inject slug/short variables
