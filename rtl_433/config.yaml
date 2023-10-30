@@ -9,7 +9,6 @@ arch:
 - aarch64
 - amd64
 - i386
-init: true
 map:
 - config:rw
 - share:rw
