@@ -3,7 +3,6 @@ version: "2023.11.1"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
-init: true
 arch:
 - armhf
 - armv7
