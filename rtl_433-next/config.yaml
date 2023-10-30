@@ -1,4 +1,5 @@
 name: rtl_433 (next)
+image: ghcr.io/catduckgnaf/rtl_433_haos_addon-rtl_433-next-{arch}
 version: "0.1.5"
 slug: rtl_433-next
 description: Receive wireless sensor data via an SDR dongle and rtl_433
