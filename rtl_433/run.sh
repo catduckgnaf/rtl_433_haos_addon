@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 
 conf_directory="/config/rtl_433"
 conf_file="rtl_433.conf"
@@ -9,7 +10,7 @@ handle_error() {
     local exit_code=$1
     local error_message=$2
     echo "Error: $error_message" >&2
-    exit $exit_code
+    exit "$exit_code"
 }
 
 # Check if the configuration directory exists
@@ -27,24 +28,24 @@ if output_options=$(bashio::config "websocket"); then
     host=$(bashio::config "ws_http_host")
     port=$(bashio::config "ws_http_port")
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
-    rtl_433 -c $conf_directory/$conf_file" -F "http://$host:$port" &
+    rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
     rtl_433_pids+=($!)
-    
+
 elif output_options=$(bashio::config "mqtt"); then
-    host=$(bashio::services "mqtt" "host")
-    password=$(bashio::services "mqtt" "password")
-    port=$(bashio::services "mqtt" "port")
-    username=$(bashio::services "mqtt" "username")
+    host=$(bashio::config "mqtt_host")
+    password=$(bashio::config "mqtt_password")
+    port=$(bashio::config "mqtt_port")
+    username=$(bashio::config "mqtt_username")
     retain=$(bashio::config "retain")
     echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
     rtl_433_pids+=($!)
 
 elif output_options=$(bashio::config "udp"); then
-    host=$(bashio::services "mqtt" "host")
-    port=$(bashio::services "mqtt" "port")
+    host=$(bashio::config "udp_host")
+    port=$(bashio::config "udp_port")
     echo "Starting rtl_433 with UDP option on $host:$port with $conf_file..."
-    rtl_433 -c "$conf_directory/$conf_file" "-F" &
+    rtl_433 -c "$conf_directory/$conf_file" -F "udp://$host:$port" &
     rtl_433_pids+=($!)
 else
     handle_error 3 "No valid output options specified in the configuration"
