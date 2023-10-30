@@ -22,14 +22,14 @@ if [ ! -f "$conf_directory/$conf_file" ]; then
     wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
 fi
 
-# Check the output options
+# Check the output options specified in the configuration
 if output_options=$(bashio::config "websocket"); then
     host=$(bashio::config "ws_http_host")
     port=$(bashio::config "ws_http_port")
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
     rtl_433 -c $conf_directory/$conf_file" -F "http://$host:$port" &
-
     rtl_433_pids+=($!)
+    
 elif output_options=$(bashio::config "mqtt"); then
     host=$(bashio::services "mqtt" "host")
     password=$(bashio::services "mqtt" "password")
@@ -38,6 +38,13 @@ elif output_options=$(bashio::config "mqtt"); then
     retain=$(bashio::config "retain")
     echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+    rtl_433_pids+=($!)
+
+elif output_options=$(bashio::config "udp"); then
+    host=$(bashio::services "mqtt" "host")
+    port=$(bashio::services "mqtt" "port")
+    echo "Starting rtl_433 with UDP option on $host:$port with $conf_file..."
+    rtl_433 -c "$conf_directory/$conf_file" "-F" &
     rtl_433_pids+=($!)
 else
     handle_error 3 "No valid output options specified in the configuration"
