@@ -20,7 +20,7 @@ fi
 
 # Check if the configuration file exists
 if [ ! -f "$conf_directory/$conf_file" ]; then
-    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
+    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
 fi
 
 # Check the output options specified in the configuration
