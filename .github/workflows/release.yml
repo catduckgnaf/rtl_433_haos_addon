@@ -27,7 +27,7 @@ jobs:
     strategy:
       matrix:
         arch: [armhf, armv7, aarch64, amd64, i386]
-        addon: [rtl_433, rtl_433-next, rtl_433_mqtt_autodiscovery, rtl_433_mqtt_autodiscovery-next]
+        addon: [rtl_433, rtl_433-next]
 
     steps:
     - name: Checkout the repository
@@ -47,7 +47,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y jq
         set -x
-        TAG=$(jq '.version' < rtl_433/config.json)
+        TAG=$(jq '.version' < rtl_433/config.yaml)
         ! docker manifest inspect ghcr.io/${{ github.repository}}-${{ matrix.addon }}-{arch}:$TAG > /dev/null
 
     - name: Inject slug/short variables
