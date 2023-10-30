@@ -29,7 +29,7 @@ options:
   rtl_topic: "rtl_433/+/events"
   discovery_prefix: "homeassistant"
   discovery_interval: 600
-  log_level: "default"
+  log_level: "debug"
 schema:
   rtl_433_conf_file": str
   output_options: list(websocket|mqtt|udp)
