@@ -1,6 +1,5 @@
 name: rtl_433
-image: ghcr.io/catduckgnaf/rtl-433-haos-addon-rtl_433-{arch}-v{version}
-version: 0.4.5
+version: "0.1.5"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
