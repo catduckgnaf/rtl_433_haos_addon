@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build_rtl_433:
-    name: Build rtl_433 addon
+    name: Build rtl_433
     runs-on: ubuntu-latest
     strategy:
       matrix:
