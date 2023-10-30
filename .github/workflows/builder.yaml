@@ -43,10 +43,9 @@ jobs:
         args: |
           --${{ matrix.arch }} \
           --docker-hub $REGISTRY \
-          --image ${{ github.repository}}-${{ matrix.addon }}-{arch} \
+          --image ${{ github.repository}}-{arch} \
           --self-cache \
           --version $GITHUB_REF_SLUG \
-          --no-latest \
           --target ${{ matrix.addon }}
 
     - name: Build and push ${{ matrix.addon }} ${{ matrix.arch }} image
@@ -56,8 +55,7 @@ jobs:
         args: |
           --${{ matrix.arch }} \
           --docker-hub $REGISTRY \
-          --image ${{ github.repository}}-${{ matrix.addon }}-{arch} \
+          --image ${{ github.repository}}-{arch} \
           --self-cache \
           --version $GITHUB_REF_SLUG \
-          --no-latest \
           --target ${{ matrix.addon }}
