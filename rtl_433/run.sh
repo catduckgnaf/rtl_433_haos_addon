@@ -26,9 +26,8 @@ fi
 if output_options=$(bashio::config "websocket"); then
     host=$(bashio::config "ws_http_host")
     port=$(bashio::config "ws_http_port")
-    echo "Starting rtl_433 with Websocket Option $conf_file..."
-    rtl_433 -c "/config/rtl_433/$conf_file" -F "http://$host:$port" &
-    echo "Starting rtl_433 with websocket option $conf_file..."
+    echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
+    rtl_433 -c $conf_directory/$conf_file" -F "http://$host:$port" &
 
     rtl_433_pids+=($!)
 elif output_options=$(bashio::config "mqtt"); then
