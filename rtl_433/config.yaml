@@ -15,25 +15,35 @@ services:
 - mqtt:want
 usb: true
 udev: true
+ports:
+  8443/tcp: 8443
+ports_description:
+  8443/tcp: Websocket port
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
-  mqtt_host: 
-  mqtt_port:
-  mqtt_user:
-  mqtt_password:
-  retain: true
-  log_level: "default"
+  log_level: list(default|quiet|debug)
+  mqtt:
+    server: core-mosquitto
+    user: addon
+    password: 
+    retain: true
+    rtl_topic: "rtl_433/+/events"
+    discovery_prefix: "homeassistant"
+    discovery_interval: 600
 schema:
   rtl_433_conf_file": "str?"
   output_options: list(websocket|mqtt)
-  mqtt_host: "str?"
-  mqtt_port: int
-  mqtt_user: "str?"
-  mqtt_password: "str?"
-  retain: bool
-  rtl_topic: str
-  discovery_prefix: "str?"
-  discovery_interval: int
-  log_level: list(default|quiet|debug)
+  log_level: "default"
+  ws_http_host: "str?"
+  ws_http_port: int
+  mqtt:
+   mqtt_host: "str?"
+   mqtt_port: int
+   mqtt_user: "str?"
+   mqtt_password: "str?"
+   retain: bool
+   rtl_topic: str
+   discovery_prefix: "str?"
+   discovery_interval: int
 
