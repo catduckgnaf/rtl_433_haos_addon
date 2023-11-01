@@ -18,8 +18,10 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
-  ws_http_host: "127.0.0.1"
-  ws_http_port: 8433
+  mqtt_host:
+  mqtt_port:
+  mqtt_user:
+  mqtt_password:
   retain: true
   rtl_topic: "rtl_433/+/events"
   discovery_prefix: "homeassistant"
@@ -27,9 +29,7 @@ options:
   log_level: "default"
 schema:
   rtl_433_conf_file": "str?"
-  output_options: list(websocket|mqtt|udp)
-  ws_http_host: "str?"
-  ws_http_port: int
+  output_options: list(websocket|mqtt)
   mqtt_host: "str?"
   mqtt_port: int
   mqtt_user: "str?"
