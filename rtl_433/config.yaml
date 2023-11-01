@@ -20,8 +20,6 @@ options:
   output_options: "websocket"
   ws_http_host: "127.0.0.1"
   ws_http_port: 8433
-  udp_host: "127.0.0.1"
-  udp_port: 9433
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_user: "addons"
@@ -36,8 +34,6 @@ schema:
   output_options: list(websocket|mqtt|udp)
   ws_http_host: "str?"
   ws_http_port: int
-  udp_host: "str?"
-  udp_port: int
   mqtt_host: "str?"
   mqtt_port: int
   mqtt_user: "str?"
