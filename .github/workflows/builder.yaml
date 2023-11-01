@@ -19,6 +19,7 @@ jobs:
   build_rtl_433:
     name: Build rtl_433
     runs-on: ubuntu-latest
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
       matrix:
         arch: [armv7, aarch64, amd64]
