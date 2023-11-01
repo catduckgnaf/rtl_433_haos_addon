@@ -24,10 +24,30 @@ if output_options=$(bashio::config "websocket"); then
     rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port"
 
 elif output_options=$(bashio::config "mqtt"); then
-    host=$(bashio::config "mqtt_host")
-    password=$(bashio::config "mqtt_password")
-    port=$(bashio::config "mqtt_port")
-    username=$(bashio::config "mqtt_username")
+    if $(bashio::config "mqtt_host"); then
+        host=$(bashio::config "mqtt_host")
+    else
+        host=$(bashio::services mqtt "host")
+    fi
+
+    if $(bashio::config "mqtt_password"); then
+        password=$(bashio::config "mqtt_password")
+    else
+        password=$(bashio::services mqtt "password")
+    fi
+
+    if $(bashio::config "mqtt_port"); then
+        port=$(bashio::config "mqtt_port")
+    else
+        port=$(bashio::services mqtt "port")
+    fi
+
+    if $(bashio::config "mqtt_username"); then
+        username=$(bashio::config "mqtt_username")
+    else
+        username=$(bashio::services mqtt "username")
+    fi
+    
     retain=$(bashio::config "retain")
     echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
