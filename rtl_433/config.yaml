@@ -5,11 +5,9 @@ slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
 init: false 
 arch:
-- armhf
 - armv7
 - aarch64
 - amd64
-- i386
 map:
 - config:rw
 - share:rw
