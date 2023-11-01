@@ -42,10 +42,28 @@ jobs:
       uses: home-assistant/builder@master
       if: github.event.pull_request.head.repo.full_name != github.repository
       with:
-        args: |
-          --${{ matrix.arch }} \
-          --docker-hub $REGISTRY \
-          --image ${{ github.repository}}-{arch} \
-          --self-cache \
-          --version $GITHUB_REF_SLUG \
-          --target ${{ matrix.addon }}
+         args: |
+            ${{ env.BUILD_ARGS }} \
+            --${{ matrix.arch }} \
+            --target /data/${{ matrix.addon }} \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+            --addon
+
+ #         --${{ matrix.arch }} \
+ #         --docker-hub $REGISTRY \
+ #         --image ${{ github.repository}}-{arch} \
+ #         --self-cache \
+ #         --version $GITHUB_REF_SLUG \
+ #         --target ${{ matrix.addon }}
+
+  #  - name: Build and push ${{ matrix.addon }} ${{ matrix.arch }} image
+  #    uses: home-assistant/builder@master
+  #    if: github.event.pull_request.head.repo.full_name == github.repository
+  #    with:
+  #      args: |
+  #        --${{ matrix.arch }} \
+  #        --docker-hub $REGISTRY \
+  #        --image ${{ github.repository}}-{arch} \
+  #        --self-cache \
+  #        --version $GITHUB_REF_SLUG \
+  #        --target ${{ matrix.addon }}
