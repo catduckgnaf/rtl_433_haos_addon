@@ -1,4 +1,16 @@
 configuration:
-  message:
-    name: Message
-    description: The message that will be printed to the log when starting this example add-on.
+  output_options:
+    name: Output Method
+    description: How to deliver device messages to Home Assistant
+  mqtt_host:
+    name: MQTT Host (default blank)
+    description: Leave blank to connect to Home Assistant mosquitto broker automatically
+  mqtt_port:
+    name: MQTT Port (default blank)
+    description: Leave blank to connect to Home Assistant mosquitto broker automatically
+  mqtt_user:
+    name: MQTT User (default blank)
+    description: Leave blank to connect to Home Assistant mosquitto broker automatically
+  mqtt_password:
+    name: MQTT Password (default blank)
+    description: Leave blank to connect to Home Assistant mosquitto broker automatically

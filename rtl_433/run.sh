@@ -18,8 +18,8 @@ fi
 
 # Check the output options specified in the configuration
 if output_options=$(bashio::config "websocket"); then
-    host=$(bashio::config "ws_http_host")
-    port=$(bashio::config "ws_http_port")
+    host="0.0.0.0"
+    port="8433"
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port"
 
