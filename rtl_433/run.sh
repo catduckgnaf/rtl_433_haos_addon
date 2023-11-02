@@ -2,6 +2,7 @@
 # shellcheck shell=bash
 
 conf_directory="/config/rtl_433"
+log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 
 
@@ -9,6 +10,11 @@ conf_file="rtl_433.conf"
 # Check if the configuration directory exists
 if [ ! -d "$conf_directory" ]; then
     mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
+fi
+
+# Check if the configuration directory exists
+if [ ! -d "$log_directory" ]; then
+    mkdir -p "$log_directory" || handle_error 1 "Failed to create config directory"
 fi
 
 # Check if the configuration file exists
