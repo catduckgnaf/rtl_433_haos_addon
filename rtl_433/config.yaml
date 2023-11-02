@@ -23,9 +23,6 @@ options:
   mqtt_user: "addons"
   mqtt_password: ""
   retain: true
-  rtl_topic: "rtl_433/+/events"
-  discovery_prefix: "homeassistant"
-  discovery_interval: 600
   log_level: "default"
 schema:
   rtl_433_conf_file": "str?"
@@ -35,7 +32,4 @@ schema:
   mqtt_user: "str?"
   mqtt_password: "str?"
   retain: bool
-  rtl_topic: str
-  discovery_prefix: "str?"
-  discovery_interval: int
   log_level: list(default|quiet|debug)
