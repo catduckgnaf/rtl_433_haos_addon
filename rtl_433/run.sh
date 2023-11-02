@@ -2,10 +2,16 @@
 # shellcheck shell=bash
 
 conf_directory="/config/rtl_433"
-log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
+rtl_433_pids=() # Initialize an array to store process IDs
 
-
+# Function to handle errors and exit the script
+handle_error() {
+    local exit_code=$1
+    local error_message=$2
+    echo "Error: $error_message" >&2
+    exit "$exit_code"
+}
 
 # Check if the configuration directory exists
 if [ ! -d "$conf_directory" ]; then
@@ -20,6 +26,22 @@ fi
 # Check if the configuration file exists
 if [ ! -f "$conf_directory/$conf_file" ]; then
     wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
+fi
+
+
+# Check if the script directory exists
+if [ ! -d "$script_directory" ]; then
+    mkdir -p "$script_directory" || handle_error 1 "Failed to create script directory"
+fi
+
+# Check if the http ws file exists
+if [ ! -f "$script_directory/$http_script" ]; then
+    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py -O "$script_directory/$http_script" || handle_error 2 "Failed to download http script"
+fi
+
+# Check if the mqtt discovery script exists
+if [ ! -f "$script_directory/$mqtt_script" ]; then
+    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py -O "$script_directory/$mqtt_script" || handle_error 2 "Failed to download mqtt script"
 fi
 
 # Check the output options specified in the configuration
