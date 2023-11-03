@@ -2,8 +2,9 @@
 # shellcheck shell=bash
 
 conf_directory="/config/rtl_433"
-conf_file="rtl_433.conf"
 script_directory="/config/rtl_433/scripts"
+log_directory="/config/rtl_433/logs"
+conf_file="rtl_433.conf"
 http_script="/rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
 rtl_433_pids=() # Initialize an array to store process IDs
