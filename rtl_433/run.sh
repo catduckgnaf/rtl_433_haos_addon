@@ -53,7 +53,11 @@ if output_options=$(bashio::config "websocket"); then
     host="0.0.0.0"
     port="8433"
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
-    rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port"
+    rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
+    rtl_433_pids+=($!)
+done
+
+wait -n ${rtl_433_pids[*]}
 
 elif output_options=$(bashio::config "mqtt"); then
     host=$(bashio::config "mqtt_host")
@@ -63,6 +67,11 @@ elif output_options=$(bashio::config "mqtt"); then
     retain=$(bashio::config "retain")
     echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+    rtl_433_pids+=($!)
+done
+
+wait -n ${rtl_433_pids[*]}
+
 else
     handle_error 3 "No valid output options specified in the configuration"
 fi
