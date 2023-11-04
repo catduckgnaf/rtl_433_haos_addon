@@ -22,16 +22,15 @@ if [ ! -d "$conf_directory" ]; then
     mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
 fi
 
-# Check if the configuration directory exists
+# Check if the log directory exists
 if [ ! -d "$log_directory" ]; then
-    mkdir -p "$log_directory" || handle_error 1 "Failed to create config directory"
+    mkdir -p "$log_directory" || handle_error 1 "Failed to create log directory"
 fi
 
 # Check if the configuration file exists
 if [ ! -f "$conf_directory/$conf_file" ]; then
-    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
 fi
-
 
 # Check if the script directory exists
 if [ ! -d "$script_directory" ]; then
@@ -40,12 +39,12 @@ fi
 
 # Check if the http ws file exists
 if [ ! -f "$script_directory/$http_script" ]; then
-    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py -O "$script_directory/$http_script" || handle_error 2 "Failed to download http script"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" -O "$script_directory/$http_script" || handle_error 2 "Failed to download http script"
 fi
 
 # Check if the mqtt discovery script exists
 if [ ! -f "$script_directory/$mqtt_script" ]; then
-    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py -O "$script_directory/$mqtt_script" || handle_error 2 "Failed to download mqtt script"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" -O "$script_directory/$mqtt_script" || handle_error 2 "Failed to download mqtt script"
 fi
 
 # Check the output options specified in the configuration
@@ -55,11 +54,9 @@ if output_options=$(bashio::config "websocket"); then
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
     rtl_433_pids+=($!)
-done
+fi
 
-wait -n ${rtl_433_pids[*]}
-
-elif output_options=$(bashio::config "mqtt"); then
+if output_options=$(bashio::config "mqtt"); then
     host=$(bashio::config "mqtt_host")
     password=$(bashio::config "mqtt_password")
     port=$(bashio::config "mqtt_port")
@@ -68,10 +65,10 @@ elif output_options=$(bashio::config "mqtt"); then
     echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
     rtl_433_pids+=($!)
-done
+fi
 
-wait -n ${rtl_433_pids[*]}
-
-else
+if [ ${#rtl_433_pids[@]} -eq 0 ]; then
     handle_error 3 "No valid output options specified in the configuration"
 fi
+
+wait -n "${rtl_433_pids[@]}"
