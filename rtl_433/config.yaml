@@ -22,7 +22,7 @@ options:
   rtl_433_http_script": "/config/rtl_433/rtl_433_http.py"
   rtl_433_mqtt_script": "/config/rtl_433/rtl_433_mqtt.py"
   output_options: "websocket"
-  run_http_script: true
+  run_http_script: false
   run_mqtt_script: false
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
