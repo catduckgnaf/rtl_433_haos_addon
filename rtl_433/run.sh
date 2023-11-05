@@ -50,7 +50,7 @@ fi
 # Check the output options specified in the configuration
 if output_options=$(bashio::config "websocket"); then
     host="0.0.0.0"
-    port="8433"
+    port="9433"
     echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
     rtl_433_pids+=($!)
