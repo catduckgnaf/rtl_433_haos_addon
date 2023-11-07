@@ -25,7 +25,8 @@ options:
  # run_http_script: false Was testing, removing for now
  # run_mqtt_script: false Was testing, removing for now
  # mqtt_host: "core-mosquitto"
- # mqtt_port: 1883
+  http_port: 9443
+  mqtt_port: 1883
  # mqtt_user: "addons"
  # mqtt_password: ""
  # retain: true
@@ -38,7 +39,8 @@ schema:
 #  run_mqtt_script: bool Was testing, removing for now
   output_options: list(websocket|mqtt)
 #  mqtt_host: "str?"
-#  mqtt_port: int
+  mqtt_port: int
+  http: int
 #  mqtt_user: "str?"
  # mqtt_password: "str?"
  # retain: bool
