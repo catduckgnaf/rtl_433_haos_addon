@@ -24,11 +24,11 @@ options:
   output_options: "websocket"
  # run_http_script: false Was testing, removing for now
  # run_mqtt_script: false Was testing, removing for now
-  mqtt_host: "core-mosquitto"
-  mqtt_port: 1883
-  mqtt_user: "addons"
-  mqtt_password: ""
-  retain: true
+ # mqtt_host: "core-mosquitto"
+ # mqtt_port: 1883
+ # mqtt_user: "addons"
+ # mqtt_password: ""
+ # retain: true
   log_level: "default"
 schema:
   rtl_433_conf_file": "str?"
@@ -37,9 +37,9 @@ schema:
 #  run_http_script: bool Was testing, removing for now
 #  run_mqtt_script: bool Was testing, removing for now
   output_options: list(websocket|mqtt)
-  mqtt_host: "str?"
-  mqtt_port: int
-  mqtt_user: "str?"
-  mqtt_password: "str?"
-  retain: bool
+#  mqtt_host: "str?"
+#  mqtt_port: int
+#  mqtt_user: "str?"
+ # mqtt_password: "str?"
+ # retain: bool
   log_level: list(default|quiet|debug)

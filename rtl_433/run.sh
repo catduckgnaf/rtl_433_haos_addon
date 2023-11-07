@@ -51,10 +51,18 @@ fi
 if output_options=$(bashio::config "websocket"); then
     host="0.0.0.0"
     port="9433"
-    echo "Starting rtl_433 with websocket option on $host:$port with $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
     rtl_433_pids+=($!)
+    echo "Starting rtl_433 with websocket option on $host:$port with $conf_file... for rtl_433_pids+=($!)" 
+
 fi
+
+## check for mqtt settings, if none, set default.
+
+if [ -z ${mqtt_port+x} ]; then
+  mqtt_port="1883"
+fi
+
 
 if output_options=$(bashio::config "mqtt"); then
     host=$(bashio::config "mqtt_host")
@@ -62,9 +70,10 @@ if output_options=$(bashio::config "mqtt"); then
     port=$(bashio::config "mqtt_port")
     username=$(bashio::config "mqtt_username")
     retain=$(bashio::config "retain")
-    echo "Starting rtl_433 with MQTT Option $conf_file..."
     rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-     rtl_433_pids+=($!)
+    rtl_433_pids+=($!)
+    echo "Starting rtl_433 with MQTT Option $conf_file..."
+
 fi
 
 if [ ${#rtl_433_pids[@]} -eq 0 ]; then
