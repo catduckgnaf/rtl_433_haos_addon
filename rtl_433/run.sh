@@ -13,6 +13,7 @@ mqtt_port="1883"
 
 ## additional commands will allow the user to specify any command line options directly from the add-on yaml config
 additional_commands=""
+
 rtl_433_pids=() # Initialize an array to store process IDs
 
 # Function to handle errors and exit the script
