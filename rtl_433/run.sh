@@ -87,9 +87,9 @@ case "$output_options" in
         host=$(bashio::config "http_host")
         port=$(bashio::config "http_port")
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "http://$host:$port" &
-        rtl_433_pids+=($!)
+        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$config_cli" -F "http://$host:$port" &
         echo "Starting rtl_433 with websocket option on "$host:$port" using $conf_file"
+        rtl_433_pids+=($!)
         ;;
 
     "mqtt")
@@ -99,9 +99,9 @@ case "$output_options" in
         username=$(bashio::config "mqtt_username")
         retain=$(bashio::config "mqtt_retain")
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-        rtl_433_pids+=($!)
+        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$config_cli" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
         echo "Starting rtl_433 with MQTT Option using $conf_file"
+        rtl_433_pids+=($!)
         ;;
     
     *)
@@ -114,4 +114,4 @@ if [ ${#rtl_433_pids[@]} -eq 0 ]; then
     handle_error 3 "No valid output options specified in the configuration"
 fi
 
-wait "${rtl_433_pids[@]}"
+wait -n "${rtl_433_pids[@]}"
