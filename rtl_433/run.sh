@@ -7,9 +7,11 @@ log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
-host="0.0.0.0"
-http_port="9433"
-mqtt_port="1883"
+error="-v"
+warning="-vv"
+debug="-vvv"
+trace="-vvvv"
+default_logging="-vvv"
 
 ## additional commands will allow the user to specify any command line options directly from the add-on yaml config
 additional_commands=""
@@ -56,26 +58,17 @@ fi
 
 # Check the output options specified in the configuration
 if output_options=$(bashio::config "websocket"); then
-    rtl_433 -c "$conf_directory/$conf_file" "$additional_commands" -F "http://$host:$http_port" &
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "http://$http_host:$http_port" &
     rtl_433_pids+=($!)
-    echo "Starting rtl_433 with websocket option on $host:$http_port with $conf_file... $additional_commands for rtl_433_pids+=($!)" 
+    echo "Starting rtl_433 with websocket option on $http_host:$http_port with $conf_file... $additional_commands for rtl_433_pids+=($!)" 
 
-fi
-
-## check for mqtt settings, if none, set default.
-
-if [ -z ${mqtt_port+x} ]; then
-  mqtt_port="1883"
-fi
-
-
-if output_options=$(bashio::config "mqtt"); then
+else output_options=$(bashio::config "mqtt"); then
     host=$(bashio::config "mqtt_host")
     password=$(bashio::config "mqtt_password")
     port=$(bashio::config "mqtt_port")
     username=$(bashio::config "mqtt_username")
-    retain=$(bashio::config "retain")
-    rtl_433 -c "$conf_directory/$conf_file" "$additional_commands" -F "mqtt://$host:$mqtt_port,retain=1,devices=rtl_433[/id]" &
+    retain=$(bashio::config "mqtt_retain")
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "mqtt://$mqtt_host:$mqtt_port,retain=1,devices=rtl_433[/id]" &
     rtl_433_pids+=($!)
     echo "Starting rtl_433 with MQTT Option $conf_file... $additional_commands"
 
