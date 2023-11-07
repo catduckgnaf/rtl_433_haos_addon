@@ -72,7 +72,7 @@ if [ "$output_options" = "websocket" ]; then
     port=$(bashio::config "http_port")
     rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "http://$host:$port" &
     rtl_433_pids+=($!)
-    echo "Starting rtl_433 with websocket option on "$host:$port with $conf_file... "$additional_commands" for rtl_433_pids+=($!)" 
+    echo "Starting rtl_433 with websocket option on "$host:$port with $conf_file..." 
 
 elif [ "$output_options" = "mqtt" ]; then
     host=$(bashio::config "mqtt_host")
@@ -89,4 +89,4 @@ if [ ${#rtl_433_pids[@]} -eq 0 ]; then
     handle_error 3 "No valid output options specified in the configuration"
 fi
 
-wait "${rtl_433_pids[@]}"
+wait -n "${rtl_433_pids[@]}"
