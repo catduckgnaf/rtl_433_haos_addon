@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 
 conf_directory="/config/rtl_433"
 script_directory="/config/rtl_433/scripts"
@@ -7,8 +8,10 @@ conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
 
-# Initialize an array to store process IDs
-rtl_433_pids=()
+## additional commands will allow the user to specify any command line options directly from the add-on yaml config
+additional_commands=""
+
+rtl_433_pids=() # Initialize an array to store process IDs
 
 # Function to handle errors and exit the script
 handle_error() {
@@ -18,100 +21,72 @@ handle_error() {
     exit "$exit_code"
 }
 
-# Function to download a file from a URL and handle errors
-download_file() {
-    local url=$1
-    local destination=$2
-    wget -q "$url" -O "$destination"
-    if [ $? -ne 0 ]; then
-        handle_error 2 "Failed to download $destination"
-    fi
-}
-
-# Check if the configuration directory exists and create it if not
+# Check if the configuration directory exists
 if [ ! -d "$conf_directory" ]; then
     mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
 fi
 
-# Check if the log directory exists and create it if not
+# Check if the log directory exists
 if [ ! -d "$log_directory" ]; then
     mkdir -p "$log_directory" || handle_error 1 "Failed to create log directory"
 fi
 
-# Download the configuration file if it doesn't exist
+# Check if the configuration file exists
 if [ ! -f "$conf_directory/$conf_file" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
 fi
 
-# Check if the script directory exists and create it if not
+# Check if the script directory exists
 if [ ! -d "$script_directory" ]; then
     mkdir -p "$script_directory" || handle_error 1 "Failed to create script directory"
 fi
 
-# Download the HTTP script if it doesn't exist
+# Check if the http ws file exists
 if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" -O "$script_directory/$http_script" || handle_error 2 "Failed to download http script"
 fi
 
-# Download the MQTT script if it doesn't exist
+# Check if the mqtt discovery script exists
 if [ ! -f "$script_directory/$mqtt_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
+    wget "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" -O "$script_directory/$mqtt_script" || handle_error 2 "Failed to download mqtt script"
 fi
 
-# Set log level
+# set log level
 log_level=$(bashio::config "log_level")
 
-case "$log_level" in
-    "error")
-        default_logging="-v"
-        ;;
-    "warn")
-        default_logging="-vv"
-        ;;
-    "debug")
-        default_logging="-vvv"
-        ;;
-    "trace")
-        default_logging="-vvvv"
-        ;;
-    *)
-        default_logging="-v" # Default to "error" level
-        ;;
-esac
+if [ "$log_level" = "error" ]; then
+   default_logging="-v"
+elif [ "$log_level" = "warn" ]; then
+   default_logging="-vv"
+elif [ "$log_level" = "debug" ]; then
+   default_logging="-vvv"
+elif [ "$log_level" = "trace" ]; then
+   default_logging="-vvvv"
+fi
 
 # Check the output options specified in the configuration
 output_options=$(bashio::config "output_options")
 
-case "$output_options" in
-    "websocket")
-        host=$(bashio::config "http_host")
-        port=$(bashio::config "http_port")
-        additional_commands=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "http://$host:$port" &
-        rtl_433_pids+=($!)
-        echo "Starting rtl_433 with websocket option on $host:$port using $conf_file"
-        ;;
+if [ "$output_options" = "websocket" ]; then
+    host=$(bashio::config "http_host")
+    port=$(bashio::config "http_port")
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "http://$host:$port" &
+    rtl_433_pids+=($!)
+    echo "Starting rtl_433 with websocket option on "$host:$port with $conf_file... "$additional_commands" for rtl_433_pids+=($!)" 
 
-    "mqtt")
-        host=$(bashio::config "mqtt_host")
-        password=$(bashio::config "mqtt_password")
-        port=$(bashio::config "mqtt_port")
-        username=$(bashio::config "mqtt_username")
-        retain=$(bashio::config "mqtt_retain")
-        additional_commands=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-        rtl_433_pids+=($!)
-        echo "Starting rtl_433 with MQTT Option on $host:$port using $conf_file"
-        ;;
-    
-    *)
-        handle_error 3 "Invalid or missing output options in the configuration"
-        ;;
-esac
+elif [ "$output_options" = "mqtt" ]; then
+    host=$(bashio::config "mqtt_host")
+    port=$(bashio::config "mqtt_port")
+    username=$(bashio::config "mqtt_username")
+    password=$(bashio::config "mqtt_password")
+    retain=$(bashio::config "mqtt_retain")
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+    rtl_433_pids+=($!)
+    echo "Starting rtl_433 with MQTT Option $conf_file... "$additional_commands"
+fi
 
-# Wait for rtl_433 processes to finish
 if [ ${#rtl_433_pids[@]} -eq 0 ]; then
     handle_error 3 "No valid output options specified in the configuration"
 fi
 
-wait "${rtl_433_pids[@]}"
+wait -n "${rtl_433_pids[@]}"
