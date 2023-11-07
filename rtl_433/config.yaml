@@ -21,8 +21,8 @@ options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
   http_host: 0.0.0.0
-  mqtt_host: "core-mosquitto"
   http_port: 9443
+  mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_user: "addons"
   mqtt_password: ""
