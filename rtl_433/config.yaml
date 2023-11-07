@@ -3,27 +3,43 @@ version: "2023.11.3"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
-init: false
+init: false 
 arch:
-  - armv7
-  - aarch64
-  - amd64
+- armv7
+- aarch64
+- amd64
 map:
-  - config:rw
-  - share:rw
+- config:rw
+- share:rw
 services:
-  - mqtt:want
+- mqtt:want
 usb: true
 udev: true
-ports:
+ports: 
   9433/tcp: 9433
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
+ # rtl_433_http_script": "/config/rtl_433/rtl_433_http.py" Was testing, removing for now
+ # rtl_433_mqtt_script": "/config/rtl_433/rtl_433_mqtt.py"
   output_options: "websocket"
+  mqtt_host: "core-mosquitto"
   http_port: 9443
   mqtt_port: 1883
+  mqtt_user: "addons"
+  mqtt_password: ""
+ # retain: true
+#  log_level: "default"
   additional_commands: "-vvv"
 schema:
-  rtl_433_conf_file: "str?"
+ # rtl_433_conf_file: "str?"
   additional_commands: "str?"
-  output_options: "list(websocket|mqtt)"
+ # rtl_433_http_script": "str?" Was testing, removing for now
+ # rtl_433_mqtt_script": "str?" Was testing, removing for now
+  output_options: list(websocket|mqtt)
+#  mqtt_host: "str?"
+ # mqtt_port: int
+ # http: int
+#  mqtt_user: "str?"
+ # mqtt_password: "str?"
+ # retain: bool
+#  log_level: list(default|quiet|debug)
