@@ -62,9 +62,9 @@ if output_options=$(bashio::config "mqtt"); then
     port=$(bashio::config "mqtt_port")
     username=$(bashio::config "mqtt_username")
     retain=$(bashio::config "retain")
-    echo "Starting rtl_433 with MQTT Option $conf_file..."
-    rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-    rtl_433_pids+=($!)
+#    echo "Starting rtl_433 with MQTT Option $conf_file..."
+#    rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+#     rtl_433_pids+=($!)
 fi
 
 if [ ${#rtl_433_pids[@]} -eq 0 ]; then

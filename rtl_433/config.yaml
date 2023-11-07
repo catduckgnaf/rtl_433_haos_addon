@@ -16,14 +16,14 @@ services:
 usb: true
 udev: true
 ports: 
-  8433/tcp: 8433
+  9433/tcp: 9433
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
-  rtl_433_http_script": "/config/rtl_433/rtl_433_http.py"
-  rtl_433_mqtt_script": "/config/rtl_433/rtl_433_mqtt.py"
+ # rtl_433_http_script": "/config/rtl_433/rtl_433_http.py" Was testing, removing for now
+ # rtl_433_mqtt_script": "/config/rtl_433/rtl_433_mqtt.py"
   output_options: "websocket"
-  run_http_script: false
-  run_mqtt_script: false
+ # run_http_script: false Was testing, removing for now
+ # run_mqtt_script: false Was testing, removing for now
   mqtt_host: "core-mosquitto"
   mqtt_port: 1883
   mqtt_user: "addons"
@@ -32,10 +32,10 @@ options:
   log_level: "default"
 schema:
   rtl_433_conf_file": "str?"
-  rtl_433_http_script": "str?"
-  rtl_433_mqtt_script": "str?"
-  run_http_script: bool
-  run_mqtt_script: bool
+ # rtl_433_http_script": "str?" Was testing, removing for now
+ # rtl_433_mqtt_script": "str?" Was testing, removing for now
+#  run_http_script: bool Was testing, removing for now
+#  run_mqtt_script: bool Was testing, removing for now
   output_options: list(websocket|mqtt)
   mqtt_host: "str?"
   mqtt_port: int
