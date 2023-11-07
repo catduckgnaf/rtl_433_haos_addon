@@ -20,6 +20,7 @@ ports:
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
+  additional_commands: ""
   http_host: 0.0.0.0
   http_port: 9443
   mqtt_host: "core-mosquitto"
@@ -28,11 +29,10 @@ options:
   mqtt_password: ""
   mqtt_retain: true
   log_level: "debug"
-  additional_commands: ""
 schema:
- # rtl_433_conf_file: "str?"
-  additional_commands: "str?"
+  rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt)
+  additional_commands: "str?"
 #  mqtt_host: "str?"
  # mqtt_port: int
  # http: int

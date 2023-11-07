@@ -68,9 +68,11 @@ fi
 output_options=$(bashio::config "output_options")
 
 if [ "$output_options" = "websocket" ]; then
-    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "http://$http_host:$http_port" &
+    host=$(bashio::config "http_host")
+    port=$(bashio::config "http_port")
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "http://$host:$port" &
     rtl_433_pids+=($!)
-    echo "Starting rtl_433 with websocket option on $http_host:$http_port with $conf_file... $additional_commands for rtl_433_pids+=($!)" 
+    echo "Starting rtl_433 with websocket option on $host:$port with $conf_file... $additional_commands for rtl_433_pids+=($!)" 
 
 elif [ "$output_options" = "mqtt" ]; then
     host=$(bashio::config "mqtt_host")
@@ -78,7 +80,7 @@ elif [ "$output_options" = "mqtt" ]; then
     port=$(bashio::config "mqtt_port")
     username=$(bashio::config "mqtt_username")
     retain=$(bashio::config "mqtt_retain")
-    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "mqtt://$mqtt_host:$mqtt_port,retain=1,devices=rtl_433[/id]" &
+    rtl_433 -c "$conf_directory/$conf_file" "$default_logging" "$additional_commands" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
     rtl_433_pids+=($!)
     echo "Starting rtl_433 with MQTT Option $conf_file... $additional_commands"
 fi
