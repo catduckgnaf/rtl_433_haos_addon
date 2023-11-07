@@ -57,7 +57,7 @@ fi
 if output_options=$(bashio::config "websocket"); then
     rtl_433 -c "$conf_directory/$conf_file" "$additional_commands" -F "http://$host:$http_port" &
     rtl_433_pids+=($!)
-    echo "Starting rtl_433 with websocket option on $host:$http_port with $conf_file... for rtl_433_pids+=($!)" 
+    echo "Starting rtl_433 with websocket option on $host:$http_port with $conf_file... $additional_commands for rtl_433_pids+=($!)" 
 
 fi
 
@@ -76,7 +76,7 @@ if output_options=$(bashio::config "mqtt"); then
     retain=$(bashio::config "retain")
     rtl_433 -c "$conf_directory/$conf_file" "$additional_commands" -F "mqtt://$host:$mqtt_port,retain=1,devices=rtl_433[/id]" &
     rtl_433_pids+=($!)
-    echo "Starting rtl_433 with MQTT Option $conf_file..."
+    echo "Starting rtl_433 with MQTT Option $conf_file... $additional_commands"
 
 fi
 
