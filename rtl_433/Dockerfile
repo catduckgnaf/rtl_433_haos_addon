@@ -10,6 +10,9 @@ RUN apk add --no-cache --virtual .buildDeps \
     librtlsdr-dev \
     cmake \
     git
+    pip
+    pip3
+    python3
 
 WORKDIR /build
 
