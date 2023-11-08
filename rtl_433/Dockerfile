@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual .buildDeps \
     git \
     pip \
     pip3 \
-    python3 \
+    python3 
 
 WORKDIR /build
 
