@@ -7,9 +7,6 @@ conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
 
-# Initialize an array to store process IDs
-rtl_433_pids=()
-
 # Function to handle errors and exit the script
 handle_error() {
     local exit_code=$1
@@ -22,10 +19,49 @@ handle_error() {
 download_file() {
     local url=$1
     local destination=$2
-    wget -q "$url" -O "$destination"
-    if [ $? -ne 0 ]; then
-        handle_error 2 "Failed to download $destination"
-    fi
+    wget -q "$url" -O "$destination" || handle_error 2 "Failed to download $destination from $url"
+}
+
+# Function to start rtl_433 with appropriate options and capture the process ID
+start_rtl_433() {
+    local log_level=$1
+    local output_options=$2
+
+    local config_cli
+    local rtl_433_args
+
+    case "$output_options" in
+        "websocket")
+            local host="0.0.0.0"
+            local port=9443
+            config_cli=$(bashio::config "additional_commands")
+            rtl_433_args="-F http://$host:$port"
+            ;;
+
+        "mqtt")
+            local host="core-mosquitto"
+            local port=1883
+            local username="addons"
+            local retain=$(bashio::config "mqtt_retain")
+            config_cli=$(bashio::config "additional_commands")
+            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
+            echo "Starting rtl_433 with MQTT Option using $conf_file"
+            ;;
+
+        "custom")
+            config_cli=$(bashio::config "additional_commands")
+            rtl_433_args=""
+            echo "Starting rtl_433 with custom option using $conf_file...so any errors are likely your fault"
+            ;;
+
+        *)
+            handle_error 3 "Invalid or missing output options in the configuration"
+            ;;
+    }
+
+    rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli $rtl_433_args &
+    # Capture the process ID
+    rtl_433_pids+=($!)
 }
 
 # Check if the configuration directory exists and create it if not
@@ -62,49 +98,20 @@ fi
 log_level=$(bashio::config "log_level")
 
 case "$log_level" in
-    "error")
-        default_logging="-v"
-        ;;
-    "warn")
-        default_logging="-vv"
-        ;;
-    "debug")
-        default_logging="-vvv"
-        ;;
-    "trace")
-        default_logging="-vvvv"
-        ;;
-    *)
-        default_logging="-vvv" # Default to "debug" level
-        ;;
+    "error") default_logging="-v" ;;
+    "warn") default_logging="-vv" ;;
+    "debug") default_logging="-vvv" ;;
+    "trace") default_logging="-vvvv" ;;
+    *) default_logging="-vvv" ;; # Default to "debug" level
 esac
 
 # Check the output options specified in the configuration
 output_options=$(bashio::config "output_options")
 
-case "$output_options" in
-    "websocket")
-        host=$(bashio::config "http_host")
-        port=$(bashio::config "http_port")
-        config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli -F "http://$host:$port" &
-        ;;
+# Initialize rtl_433_pids array
+rtl_433_pids=()
 
-    "mqtt")
-        host=$(bashio::config "mqtt_host")
-        password=$(bashio::config "mqtt_password")
-        port=$(bashio::config "mqtt_port")
-        username=$(bashio::config "mqtt_username")
-        retain=$(bashio::config "mqtt_retain")
-        config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-        echo "Starting rtl_433 with MQTT Option using $conf_file"
-        ;;
-    
-    *)
-        handle_error 3 "Invalid or missing output options in the configuration"
-        ;;
-esac
+start_rtl_433 "$log_level" "$output_options"
 
 # Wait for rtl_433 processes to finish
 if [ ${#rtl_433_pids[@]} -eq 0 ]; then
