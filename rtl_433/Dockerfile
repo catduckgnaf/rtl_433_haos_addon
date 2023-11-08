@@ -52,7 +52,6 @@ RUN \
         websockets \
         websocket \
         json \
-        websocket-client 
-    \
+        websocket-client  \
     && chmod a+x /run.sh
 CMD [ "/run.sh" ]
