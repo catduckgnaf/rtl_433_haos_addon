@@ -9,10 +9,7 @@ RUN apk add --no-cache --virtual .buildDeps \
     libusb-dev \
     librtlsdr-dev \
     cmake \
-    git \
-    py3-websockets \
-    py3-pip \
-    py3-setuptool
+    git 
 
 WORKDIR /build
 
@@ -36,22 +33,14 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
-    sed
+    sed \
+    py3-pip
+
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-# pip
 
 # Run script
 COPY run.sh /
-RUN \
-    pip install \
-        --no-cache-dir \
-        --prefer-binary \
-        paho-mqtt \
-        websockets \
-        websocket \
-        json \
-        websocket-client  \
-    && chmod a+x /run.sh
+RUN chmod a+x /run.sh
 CMD [ "/run.sh" ]
