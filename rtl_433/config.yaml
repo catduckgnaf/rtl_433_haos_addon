@@ -11,6 +11,8 @@ arch:
 map:
 - config:rw
 - share:rw
+ports:
+  9433/tcp: 9433
 services:
 - mqtt:want
 usb: true
