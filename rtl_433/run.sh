@@ -54,9 +54,6 @@ start_rtl_433() {
             echo "Starting rtl_433 with custom option using $conf_file...so any errors are likely your fault"
             ;;
 
-        *)
-            handle_error 3 "Invalid or missing output options in the configuration"
-            ;;
     }
 
     rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli $rtl_433_args &
