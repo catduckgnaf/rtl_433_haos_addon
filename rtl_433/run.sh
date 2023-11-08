@@ -19,95 +19,100 @@ handle_error() {
 download_file() {
     local url=$1
     local destination=$2
-    wget -q "$url" -O "$destination" || handle_error 2 "Failed to download $destination from $url"
+    wget -q "$url" -O "$destination"
+    if [ $? -ne 0 ]; then
+        handle_error 2 "Failed to download $destination from $url"
+    fi
 }
 
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
     local log_level=$1
     local output_options=$2
-
+    local host
+    local port
     local config_cli
-    local rtl_433_args
 
     case "$output_options" in
         "websocket")
-            local host="0.0.0.0"
-            local port=9443
+            host="0.0.0.0"
+            port=9443
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F http://$host:$port"
+            rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli -F "http://$host:$port" &
             ;;
 
         "mqtt")
-            local host="core-mosquitto"
-            local port=1883
-            local username="addons"
-            local retain=$(bashio::config "mqtt_retain")
+            host="core-mosquitto"
+            password=""
+            port=1883
+            username="add-on"
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
+            rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
             echo "Starting rtl_433 with MQTT Option using $conf_file"
             ;;
-
+        
         "custom")
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args=""
-            echo "Starting rtl_433 with custom option using $conf_file...so any errors are likely your fault"
+            rtl_433 -c "$conf_directory/$conf_file" $config_cli &
             ;;
-
         *)
             handle_error 3 "Invalid or missing output options in the configuration"
             ;;
-    
+    }
 
-    rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli $rtl_433_args &
     # Capture the process ID
     rtl_433_pids+=($!)
 }
 
-# Function to create a directory if it doesn't exist
-create_directory_if_not_exists() {
-    local directory=$1
-    if [ ! -d "$directory" ]; then
-        mkdir -p "$directory" || handle_error 1 "Failed to create $directory"
-    fi
-}
-
-# Function to download a file if it doesn't exist
-download_file_if_not_exists() {
-    local url=$1
-    local destination=$2
-    if [ ! -f "$destination" ]; then
-        download_file "$url" "$destination"
-    fi
-}
-
 # Check if the configuration directory exists and create it if not
-create_directory_if_not_exists "$conf_directory"
+if [ ! -d "$conf_directory" ]; then
+    mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
+fi
 
 # Check if the log directory exists and create it if not
-create_directory_if_not_exists "$log_directory"
+if [ ! -d "$log_directory" ]; then
+    mkdir -p "$log_directory" || handle_error 1 "Failed to create log directory"
+fi
 
 # Download the configuration file if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
+if [ ! -f "$conf_directory/$conf_file" ]; then
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
+fi
 
 # Check if the script directory exists and create it if not
-create_directory_if_not_exists "$script_directory"
+if [ ! -d "$script_directory" ]; then
+    mkdir -p "$script_directory" || handle_error 1 "Failed to create script directory"
+fi
 
 # Download the HTTP script if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
+if [ ! -f "$script_directory/$http_script" ]; then
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
+fi
 
 # Download the MQTT script if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
+if [ ! -f "$script_directory/$mqtt_script" ]; then
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
+fi
 
 # Set log level
 log_level=$(bashio::config "log_level")
 
 case "$log_level" in
-    "error") default_logging="-v" ;;
-    "warn") default_logging="-vv" ;;
-    "debug") default_logging="-vvv" ;;
-    "trace") default_logging="-vvvv" ;;
-    *) default_logging="-vvv" ;; # Default to "debug" level
+    "error")
+        default_logging="-v"
+        ;;
+    "warn")
+        default_logging="-vv"
+        ;;
+    "debug")
+        default_logging="-vvv"
+        ;;
+    "trace")
+        default_logging="-vvvv"
+        ;;
+    *)
+        default_logging="-vvv" # Default to "debug" level
+        ;;
 esac
 
 # Check the output options specified in the configuration
@@ -117,6 +122,11 @@ output_options=$(bashio::config "output_options")
 rtl_433_pids=()
 
 start_rtl_433 "$log_level" "$output_options"
+
+# Wait for rtl_433 processes to finish
+if [ ${#rtl_433_pids[@]} -eq 0 ]; then
+    handle_error 3 "No valid output options specified in the configuration"
+fi
 
 # Instead of waiting for any process to finish, loop indefinitely
 while true; do
