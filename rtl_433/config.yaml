@@ -39,5 +39,5 @@ schema:
   http_host: "str?"
   mqtt_user: "str?"
   mqtt_password: "str?"
-  retain: bool
+  mqtt_retain: bool
   log_level: list(warning|error|debug|trace)
