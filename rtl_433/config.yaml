@@ -33,10 +33,11 @@ schema:
   rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt)
   additional_commands: "str?"
-#  mqtt_host: "str?"
- # mqtt_port: int
- # http: int
-#  mqtt_user: "str?"
- # mqtt_password: "str?"
- # retain: bool
+  mqtt_host: "str?"
+  mqtt_port: int
+  http_port: int
+  http_host: "str?"
+  mqtt_user: "str?"
+  mqtt_password: "str?"
+  retain: bool
   log_level: list(warning|error|debug|trace)
