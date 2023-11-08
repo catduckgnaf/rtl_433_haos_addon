@@ -114,4 +114,7 @@ if [ ${#rtl_433_pids[@]} -eq 0 ]; then
     handle_error 3 "No valid output options specified in the configuration"
 fi
 
-wait -n "${rtl_433_pids[@]}"
+# Instead of waiting for any process to finish, loop indefinitely
+while true; do
+    sleep infinity
+done
