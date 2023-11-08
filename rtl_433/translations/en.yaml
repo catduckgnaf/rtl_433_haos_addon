@@ -2,6 +2,9 @@ configuration:
   output_options:
     name: Output Method
     description: How to deliver device messages to Home Assistant
+  additional_commands:
+    name: Additional Commands
+    description: Enter command line options you want passed through. This is required if using "custom" output_options
   mqtt_host:
     name: MQTT Host (default blank)
     description: Leave blank to connect to Home Assistant mosquitto broker automatically
