@@ -10,15 +10,14 @@ mqtt_script="rtl_433_mqtt_hass.py"
 # Initialize an array to store process IDs
 rtl_433_pids=()
 
-# Function to handle errors and exit the script
+# Function to handle errors and log them
 handle_error() {
     local exit_code=$1
     local error_message=$2
     echo "Error: $error_message" >&2
-    exit "$exit_code"
 }
 
-# Function to download a file from a URL and handle errors
+# Function to download a file from a URL and log errors
 download_file() {
     local url=$1
     local destination=$2
@@ -103,18 +102,13 @@ case "$output_options" in
     "custom")
         config_cli=$(bashio::config "additional_commands")
         rtl_433 -c "$conf_directory/$conf_file" "config_cli" &
-            echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
+        echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
     *)
         handle_error 3 "Invalid or missing output options in the configuration"
         ;;
 esac
-
-# Wait for rtl_433 processes to finish
-if [ ${#rtl_433_pids[@]} -eq 0 ]; then
-    handle_error 3 "No valid output options specified in the configuration"
-fi
 
 # Instead of waiting for any process to finish, loop indefinitely
 while true; do
