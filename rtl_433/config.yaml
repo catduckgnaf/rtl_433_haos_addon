@@ -15,8 +15,6 @@ services:
 - mqtt:want
 usb: true
 udev: true
-ports: 
-  9433/tcp: 9433
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
