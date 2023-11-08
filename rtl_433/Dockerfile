@@ -10,9 +10,9 @@ RUN apk add --no-cache --virtual .buildDeps \
     librtlsdr-dev \
     cmake \
     git \
-    pip \
-    pip3 \
-    python3 
+    py3-websockets \
+    py3-pip \
+    py3-setuptool
 
 WORKDIR /build
 
@@ -48,7 +48,11 @@ RUN \
     pip install \
         --no-cache-dir \
         --prefer-binary \
-        paho-mqtt websockets websocket json websocket-client \
+        paho-mqtt \
+        websockets \
+        websocket \
+        json \
+        websocket-client 
     \
     && chmod a+x /run.sh
 CMD [ "/run.sh" ]
