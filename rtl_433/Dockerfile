@@ -9,10 +9,10 @@ RUN apk add --no-cache --virtual .buildDeps \
     libusb-dev \
     librtlsdr-dev \
     cmake \
-    git
-    pip
-    pip3
-    python3
+    git \
+    pip \
+    pip3 \
+    python3 \
 
 WORKDIR /build
 
