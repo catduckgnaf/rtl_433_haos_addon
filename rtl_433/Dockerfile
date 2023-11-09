@@ -40,7 +40,6 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache libusb \
     librtlsdr \
     sed \
-    py3-pip
 
 WORKDIR /root
 COPY --from=builder /build/root/ /
