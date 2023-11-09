@@ -13,6 +13,8 @@ map:
 - share:rw
 ports:
   9433/tcp: 9433
+ports_description:
+  9433/tcp: HTTP API Server
 services:
 - mqtt:want
 usb: true
