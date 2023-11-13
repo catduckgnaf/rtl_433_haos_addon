@@ -3,12 +3,7 @@ version: "2023.11.3"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
-panel_icon: "mdi:radio"
-panel_title: rtl_433
 init: false 
-ingress_entry: /
-ingress: true
-ingress_port: 9433
 arch:
 - armv7
 - aarch64
@@ -16,10 +11,6 @@ arch:
 map:
 - homeassistant_config:rw
 - share:rw
-ports:
-  9433: null
-ports_description:
-  9433: HTTP API Server
 services:
 - mqtt:want
 usb: true
