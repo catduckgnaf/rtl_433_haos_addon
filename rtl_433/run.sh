@@ -86,7 +86,7 @@ case "$output_options" in
         host="0.0.0.0"
         port=9443
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$logging" $config_cli -F "http://$host:$port" &
+        rtl_433 -c "$conf_directory/$conf_file" "$logging" "$config_cli" -F "http://$host:$port" &
         ;;
 
     "mqtt")
