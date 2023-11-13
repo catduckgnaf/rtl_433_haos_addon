@@ -7,7 +7,6 @@ panel_icon: "mdi:radio"
 panel_title: rtl_433
 init: false 
 ingress_entry: /
-host_network: true
 ingress: true
 ingress_port: 9433
 arch:
@@ -18,8 +17,8 @@ map:
 - homeassistant_config:rw
 - share:rw
 ports:
-  9433/tcp: 9433
-  9433/udp: 9433
+  9433/tcp: null
+  9433/udp: null
 ports_description:
   9433/tcp: HTTP API Server
   9433/tcp: HTTP UDP Server
