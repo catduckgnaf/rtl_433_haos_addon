@@ -8,6 +8,10 @@ arch:
 - armv7
 - aarch64
 - amd64
+ports:
+  9433/tcp: null
+ports_description:
+  9433/tcp: Add-On Communication
 map:
 - homeassistant_config:rw
 - share:rw
