@@ -4,6 +4,11 @@ description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
 init: false 
+webui: "http://[HOST]:[PORT:9443]"
+ingress_entry: /
+host_network: false
+ingress: true
+ingress_port: 9433
 arch:
 - armv7
 - aarch64
@@ -13,8 +18,10 @@ map:
 - share:rw
 ports:
   9433/tcp: 9433
+  9433/udp: 9433
 ports_description:
   9433/tcp: HTTP API Server
+  9433/tcp: HTTP UDP Server
 services:
 - mqtt:want
 usb: true
