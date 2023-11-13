@@ -4,9 +4,8 @@ description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
 init: false 
-webui: "http://[HOST]:[PORT:9443]"
 ingress_entry: /
-host_network: false
+host_network: true
 ingress: true
 ingress_port: 9433
 arch:
@@ -14,7 +13,7 @@ arch:
 - aarch64
 - amd64
 map:
-- config:rw
+- homeassistant_config:rw
 - share:rw
 ports:
   9433/tcp: 9433
