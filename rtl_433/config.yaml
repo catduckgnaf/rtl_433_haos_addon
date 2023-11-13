@@ -17,11 +17,9 @@ map:
 - homeassistant_config:rw
 - share:rw
 ports:
-  9433/tcp: null
-  9433/udp: null
+  9433: null
 ports_description:
-  9433/tcp: HTTP API Server
-  9433/tcp: HTTP UDP Server
+  9433: HTTP API Server
 services:
 - mqtt:want
 usb: true
