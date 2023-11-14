@@ -1,12 +1,44 @@
-build_from:
-  aarch64: homeassistant/aarch64-base:3.18
-  amd64: homeassistant/amd64-base:3.18
-  armv7: homeassistant/armv7-base:3.18
+version: "2023.11.3"
+
+arch:
+  - armv7
+  - aarch64
+  - amd64
+
+docker:
+  name: rtl_433
+  target: null
+
+  services:
+    - name: rtl_433
+      ports:
+        - 9433:9433
+
+  volumes:
+    - rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
+    - share: "/share"
+
 labels:
   org.opencontainers.image.title: "rtl_433 Home Assistant Add-on"
   org.opencontainers.image.description: "Receive wireless sensor data via an SDR dongle and rtl_433"
   org.opencontainers.image.source: "https://github.com/catduckgnaf/rtl_433_haos_addon"
   org.opencontainers.image.licenses: "Apache License 2.0"
+
 args:
   rtl433GitRevision: master
 
+install: |
+  RTL_433_VERSION=$(grep 'version:' config.yaml | awk '{print $2}')
+  export RTL_433_VERSION
+  echo "Version: $RTL_433_VERSION"
+
+build: |
+  echo "Building rtl_433 version $RTL_433_VERSION"
+
+  homeassistant/builder \
+    --${arch} \
+    --docker-hub ghcr.io \
+    --image ${name}-{arch} \
+    --self-cache \
+    --version $RTL_433_VERSION \
+    --target ${target}
