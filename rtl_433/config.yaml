@@ -9,7 +9,7 @@ arch:
 - aarch64
 - amd64
 ports:
-  9433/tcp: null
+  9433/tcp: 9433
 ports_description:
   9433/tcp: Add-On Communication
 map:
