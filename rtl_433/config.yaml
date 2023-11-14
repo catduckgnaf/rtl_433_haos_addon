@@ -22,7 +22,7 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
-  additional_commands: ""
+  additional_commands: null
   log_level: null
 schema:
   rtl_433_conf_file: "str?"
