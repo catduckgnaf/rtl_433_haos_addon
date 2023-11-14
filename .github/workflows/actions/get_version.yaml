@@ -1,0 +1,25 @@
+- name: Get version from config.yaml
+  id: get_version
+  run: echo "RTL_433_VERSION=$(grep 'version:' config.yaml | awk '{print $2}')" >> $GITHUB_ENV
+
+- name: Show version
+  run: echo "Version: ${{ env.RTL_433_VERSION }}"
+  
+- name: Login to Packages Container registry
+  uses: docker/login-action@v3
+  with:
+    registry: ${{ env.REGISTRY }}
+    username: ${{ github.actor }}
+    password: ${{ secrets.GITHUB_TOKEN }}
+
+- name: Build ${{ matrix.addon }} ${{ matrix.arch }} image
+  uses: home-assistant/builder@master
+  if: github.event.pull_request.head.repo.full_name != github.repository
+  with:
+    args: |
+      --${{ matrix.arch }} \
+      --docker-hub $REGISTRY \
+      --image ${{ github.repository}}-{arch} \
+      --self-cache \
+      --version ${{ env.RTL_433_VERSION }} \
+      --target ${{ matrix.addon }}
