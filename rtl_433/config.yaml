@@ -9,7 +9,7 @@ arch:
 - aarch64
 - amd64
 ports:
-  9433/tcp: 9433
+  9433/tcp: null
 ports_description:
   9433/tcp: Add-On Communication
 map:
@@ -23,7 +23,7 @@ options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
   additional_commands: ""
-  log_level: null
+  log_level: "debug"
 schema:
   rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt|custom)
