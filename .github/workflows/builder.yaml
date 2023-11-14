@@ -31,8 +31,8 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4.1.1
 
-      - name: Get version from config.yaml
-        run: echo "::set-env name=RTL_433_VERSION::$(grep 'version:' config.yaml | awk '{print $2}')"
+      - name: Set RTL_433_VERSION environment variable (unsafe)
+        run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV && echo "::set-env name=RTL_433_VERSION::$(grep 'version:' config.yaml | awk '{print $2}')"
 
       - name: Login to Packages Container registry
         uses: docker/login-action@v3
