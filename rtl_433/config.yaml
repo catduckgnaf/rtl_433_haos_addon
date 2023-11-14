@@ -23,7 +23,7 @@ options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
   additional_commands: ""
-  log_level: "debug"
+  log_level: null
 schema:
   rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt|custom)
