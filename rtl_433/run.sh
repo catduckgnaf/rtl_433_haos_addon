@@ -62,19 +62,19 @@ log_level=$(bashio::config "log_level")
 
 case "$log_level" in
     "error")
-        logging="-v"
+        log_level="-v"
         ;;
     "warn")
-        logging="-vv"
+        log_level="-vv"
         ;;
     "debug")
-        logging="-vvv"
+        log_level="-vvv"
         ;;
     "trace")
-        logging="-vvvv"
+        $log_level="-vvvv"
         ;;
     *)
-        logging="-v" # Default to "debug" level
+        log_level="-vv" # Default to "warn" level
         ;;
 esac
 
@@ -86,7 +86,7 @@ case "$output_options" in
         host="0.0.0.0"
         port=9443
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$logging" "$config_cli" -F "http://$host:$port" &
+        rtl_433 -c "$conf_directory/$conf_file" "$log_level"= "$config_cli" -F "http://$host:$port" &
         ;;
 
     "mqtt")
