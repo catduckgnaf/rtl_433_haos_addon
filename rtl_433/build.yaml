@@ -9,4 +9,3 @@ labels:
   org.opencontainers.image.licenses: "Apache License 2.0"
 args:
   rtl433GitRevision: master
-
