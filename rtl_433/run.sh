@@ -74,7 +74,7 @@ case "$log_level" in
         logging="-vvvv"
         ;;
     *)
-        logging="-vvv" # Default to "debug" level
+        logging="-v" # Default to "debug" level
         ;;
 esac
 
