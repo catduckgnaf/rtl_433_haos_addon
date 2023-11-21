@@ -98,7 +98,7 @@ case "$output_options" in
         config_cli=$(bashio::config "additional_commands")
         rtl_433_conf_local=$(bashio::config "rtl_433_conf_file")
         echo "Starting rtl_433 with custom option using $rtl_433_conf_local....Any errors are almost certainly yours"
-        rtl_433 &
+        rtl_433 $config_cli &
         ;;
 
     *)
