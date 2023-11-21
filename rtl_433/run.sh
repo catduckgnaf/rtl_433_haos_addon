@@ -106,9 +106,5 @@ case "$output_options" in
         ;;
 esac
 
-# Wait for rtl_433 processes to finish
-if [ ${#rtl_433_pids[@]} -eq 0 ]; then
-    handle_error 3 "No valid output options specified in the configuration"
-fi
 
 wait "${rtl_433_pids[@]}"
