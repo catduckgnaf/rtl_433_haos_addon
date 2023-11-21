@@ -118,7 +118,8 @@ case "$output_options" in
         host="0.0.0.0"
         port=9443
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
+        rtl_433_conf=$(bashio::config "rtl_433_conf_file")
+        rtl_433 -c $rtl_433_conf_local -F "http://$host:$port" &
         echo "Starting rtl_433 with http option using $conf_file"
         ;;
 
@@ -128,13 +129,14 @@ case "$output_options" in
         port=1883
         username="addons"
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+        rtl_433_conf_local=$(bashio::config "rtl_433_conf_file")
+        rtl_433 -c $rtl_433_conf_local -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
         echo "Starting rtl_433 with MQTT option using $conf_file"
         ;;
 
     "custom")
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$config_cli" &
+        rtl_433 -c $rtl_433_conf_local &
         echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
