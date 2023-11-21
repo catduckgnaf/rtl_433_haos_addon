@@ -24,48 +24,6 @@ download_file() {
     wget -q "$url" -O "$destination" || handle_error 2 "Failed to download $destination from $url"
 }
 
-# Function to start rtl_433 with appropriate options and capture the process ID
-start_rtl_433() {
-    local log_level=$1
-    local output_options=$2
-
-    local config_cli
-    local rtl_433_args
-
-    case "$output_options" in
-        "websocket")
-            local host="0.0.0.0"
-            local port=9443
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F http://$host:$port"
-            ;;
-
-        "mqtt")
-            local host="core-mosquitto"
-            local port=1883
-            local username="addons"
-            local retain=$(bashio::config "mqtt_retain")
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
-            echo "Starting rtl_433 with MQTT Option using $conf_file"
-            ;;
-
-        "custom")
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args=""
-            echo "Starting rtl_433 with custom option using $conf_file...so any errors are likely your fault"
-            ;;
-
-        *)
-            handle_error 3 "Invalid or missing output options in the configuration"
-            ;;
-    }
-
-    rtl_433 -c "$conf_directory/$conf_file" $log_level $config_cli $rtl_433_args &
-    # Capture the process ID
-    rtl_433_pids+=($!)
-}
-
 # Function to create a directory if it doesn't exist
 create_directory_if_not_exists() {
     local directory=$1
