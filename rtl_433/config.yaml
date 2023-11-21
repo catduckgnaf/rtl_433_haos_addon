@@ -1,5 +1,5 @@
 name: rtl_433
-version: "2023.11.3"
+version: "2023.11.4"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon/tree/main/rtl_433
@@ -8,15 +8,17 @@ arch:
 - armv7
 - aarch64
 - amd64
+ports:
+  9433/tcp: 9433
+ports_description:
+  9433/tcp: Add-On Communication
 map:
-- config:rw
+- homeassistant_config:rw
 - share:rw
 services:
 - mqtt:want
 usb: true
 udev: true
-ports: 
-  9433/tcp: 9433
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
