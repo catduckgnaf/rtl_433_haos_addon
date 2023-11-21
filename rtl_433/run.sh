@@ -67,7 +67,7 @@ case "$log_level" in
     "warn") default_logging="-vv" ;;
     "debug") default_logging="-vvv" ;;
     "trace") default_logging="-vvvv" ;;
-    *) default_logging="-vvv" ;; # Default to "debug" level
+    *) default_logging="-vv" ;; # Default to "warn" level
 esac
 
 # Check the output options specified in the configuration
