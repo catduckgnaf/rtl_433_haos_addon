@@ -120,37 +120,4 @@ case "$output_options" in
         host="0.0.0.0"
         port=9443
         config_cli=$(bashio::config "additional_commands")
-        rtl_433_conf_local=$(bashio::config "rtl_433_conf_file")
-        rtl_433 -c $rtl_433_conf_local -F "http://$host:$port" &
-        echo "Starting rtl_433 with http option using $conf_file"
-        ;;
-
-    "mqtt")
-        host="core-mosquitto"
-        password=""
-        port=1883
-        username="addons"
-        config_cli=$(bashio::config "additional_commands")
-        rtl_433_conf_local=$(bashio::config "rtl_433_conf_file")
-        rtl_433 -c $rtl_433_conf_local -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
-        echo "Starting rtl_433 with MQTT option using $rtl_433_conf_local"
-        ;;
-
-    "custom")
-        config_cli=$(bashio::config "additional_commands")
-        rtl_433_conf_local=$(bashio::config "rtl_433_conf_file")
-        rtl_433 -c $rtl_433_conf_local &
-        echo "Starting rtl_433 with custom option using $rtl_433_conf_local....Any errors are almost certainly yours"
-        ;;
-
-    *)
-        handle_error 3 "Invalid or missing output options in the configuration"
-        ;;
-esac
-
-# Wait for rtl_433 processes to finish
-if [ ${#rtl_433_pids[@]} -eq 0 ]; then
-    handle_error 3 "No valid output options specified in the configuration"
-fi
-
-wait "${rtl_433_pids[@]}"
+        rtl_433_conf_local=$(bashio::config "rtl
