@@ -113,12 +113,36 @@ esac
 # Check the output options specified in the configuration
 output_options=$(bashio::config "output_options")
 
-# Initialize rtl_433_pids array
-rtl_433_pids=()
+case "$output_options" in
+    "websocket")
+        host=$(bashio::config "http_host")
+        port=$(bashio::config "http_port")
+        additional_commands=$(bashio::config "additional_commands")
+        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "http://$host:$port" &
+        rtl_433_pids+=($!)
+        echo "Starting rtl_433 with websocket option on $http_host:$http_port using $conf_file"
+        ;;
 
-start_rtl_433 "$log_level" "$output_options"
+    "mqtt")
+        host=$(bashio::config "mqtt_host")
+        password=$(bashio::config "mqtt_password")
+        port=$(bashio::config "mqtt_port")
+        username=$(bashio::config "mqtt_username")
+        retain=$(bashio::config "mqtt_retain")
+        additional_commands=$(bashio::config "additional_commands")
+        rtl_433 -c "$conf_directory/$conf_file" "$default_logging" $additional_commands -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+        rtl_433_pids+=($!)
+        echo "Starting rtl_433 with MQTT Option on $mqtt_host:$mqtt_port using $conf_file"
+        ;;
 
-# Instead of waiting for any process to finish, loop indefinitely
-while true; do
-    sleep infinity
-done
+    *)
+        handle_error 3 "Invalid or missing output options in the configuration"
+        ;;
+esac
+
+# Wait for rtl_433 processes to finish
+if [ ${#rtl_433_pids[@]} -eq 0 ]; then
+    handle_error 3 "No valid output options specified in the configuration"
+fi
+
+wait "${rtl_433_pids[@]}"
