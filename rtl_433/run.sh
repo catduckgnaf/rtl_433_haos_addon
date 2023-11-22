@@ -1,90 +1,49 @@
 #!/usr/bin/with-contenv bashio
 
 conf_directory="/config/rtl_433"
-script_directory="/config/rtl_433/scripts"
-log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
-rtl_433_pids=()
+rtl_433_pids=() # Initialize an array to store process IDs
 
-# Function to handle errors without exiting the script
+# Function to handle errors and exit the script
 handle_error() {
     local exit_code=$1
     local error_message=$2
     echo "Error: $error_message" >&2
+    exit $exit_code
 }
 
-# Function to download a file from a URL and handle errors
-download_file() {
-    local url=$1
-    local destination=$2
-    wget -q "$url" -O "$destination" || handle_error 2 "Failed to download $destination from $url"
-}
+# Check if the configuration directory exists
+if [ ! -d "$conf_directory" ]; then
+    mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
+fi
 
-# Function to create a directory if it doesn't exist
-create_directory_if_not_exists() {
-    local directory=$1
-    if [ ! -d "$directory" ]; then
-        mkdir -p "$directory" || handle_error 1 "Failed to create $directory"
-    fi
-}
+# Check if the configuration file exists
+if [ ! -f "$conf_directory/$conf_file" ]; then
+    wget https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433.conf -O "$conf_directory/$conf_file" || handle_error 2 "Failed to download configuration file"
+fi
 
-# Function to download a file if it doesn't exist
-download_file_if_not_exists() {
-    local url=$1
-    local destination=$2
-    if [ ! -f "$destination" ]; then
-        download_file "$url" "$destination"
-    fi
-}
-
-# Function to start rtl_433 with appropriate options and capture the process ID
-start_rtl_433() {
-    local log_level=$1
-    local output_options=$2
-
-    local config_cli
-    local rtl_433_args
-
-    case "$output_options" in
-        "websocket")
-            local host="0.0.0.0"
-            local port=9443
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F http://$host:$port"
-            ;;
-
-        "mqtt")
-            local host="core-mosquitto"
-            local port=1883
-            local username="addons"
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
-            echo "Starting rtl_433 with MQTT Option using $conf_directory/$conf_file"
-            ;;
-
-        "custom")
-            config_cli=$(bashio::config "additional_commands")
-            rtl_433_args=""
-            echo "Starting rtl_433 with custom option using custom commands and $conf_directory/$conf_file...so any errors are likely your fault"
-            ;;
-
-        *)
-            handle_error 3 "Invalid or missing output options in the configuration"
-            ;;
-    esac
-
-    rtl_433 -c "$conf_directory/$conf_file" $log_level $config_cli $rtl_433_args &
-    # Capture the process ID and add it to the array
+# Check the output options specified in the configuration
+if output_options=$(bashio::config "websocket"); then
+    config_cli=$(bashio::config "additional_commands")
+    echo "Starting rtl_433 with websocket option on $host:$port with $conf_directory/$conf_file"
+    rtl_433 -c "$conf_directory/$conf_file" -F "http://0.0.0.0:9443" &
     rtl_433_pids+=($!)
-}
 
+elif output_options=$(bashio::config "mqtt"); then
+    config_cli=$(bashio::config "additional_commands")
+    echo "Starting rtl_433 with MQTT option $conf_directory/$conf_file"
+    rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://core-mosquitto:1883,retain=1,devices=rtl_433[/id]" &
+    rtl_433_pids+=($!)
 
-# Start rtl_433 processes based on the output options
-start_rtl_433 "$output_options"
-
-# Wait for rtl_433 processes to finish
-if [ ${#rtl_433_pids[@]} -eq 0 ]; then
+elif output_options=$(bashio::config "custom"); then
+    config_cli=$(bashio::config "additional_commands")
+    echo "Starting rtl_433 with custom option using $conf_directory/$conf_file...so any errors are likely your fault"    rtl_433 -c "$conf_directory/$conf_file" $conflig_cli &
+    rtl_433_pids+=($!)
+else
     handle_error 3 "No valid output options specified in the configuration"
 fi
 
-wait "${rtl_433_pids[@]}"
+# Wait for all background rtl_433 processes to complete
+for pid in "${rtl_433_pids[@]}"; do
+    wait "$pid" || handle_error 4 "One of the rtl_433 processes failed to complete"
+done
