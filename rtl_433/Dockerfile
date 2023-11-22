@@ -44,12 +44,8 @@ RUN apk add --no-cache libusb \
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-RUN \
-    pip install \
-        --no-cache-dir \
-        --prefer-binary \
-        websocket-client \
-    \
+RUN pip install websocket-client 
+
 # Run script
 COPY run.sh /
 RUN chmod a+x /run.sh
