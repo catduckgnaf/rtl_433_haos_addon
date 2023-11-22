@@ -45,7 +45,7 @@ start_rtl_433() {
             local host="0.0.0.0"
             local port=9443
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F http://$host:$port"
+            rtl_433_args="-F http://$host:$port $config_cli"
             ;;
 
         "mqtt")
@@ -53,13 +53,13 @@ start_rtl_433() {
             local port=1883
             local username="addons"
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
+            rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id] $config_cli"
             echo "Starting rtl_433 with MQTT Option using $conf_file"
             ;;
 
         "custom")
             config_cli=$(bashio::config "additional_commands")
-            rtl_433_args=""
+            rtl_433_args="$config_cli"
             echo "Starting rtl_433 with custom option using $conf_file...so any errors are likely your fault"
             ;;
 
