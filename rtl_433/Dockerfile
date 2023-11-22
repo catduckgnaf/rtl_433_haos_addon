@@ -38,10 +38,12 @@ FROM $BUILD_FROM
 
 ENV LANG C.UTF-8
 
-RUN apk add --no-cache libusb \
+RUN apk add --no-cache .buildDeps \
+    libusb \
     librtlsdr \
-    sed 
-    
+    sed \
+    py3-pip && pip3 install websocket-client
+
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
