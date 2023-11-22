@@ -3,19 +3,13 @@ FROM $BUILD_FROM as builder
 
 ENV LANG C.UTF-8
 
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 # Copied with minor edits from https://github.com/hertzg/rtl_433_docker/blob/master/images/alpine/build-context/Dockerfile
 RUN apk add --no-cache --virtual .buildDeps \
     build-base \
     libusb-dev \
     librtlsdr-dev \
     cmake \
-    linux-headers \
-    py3-pip=23.1.2-r0 \
-    python3-dev=3.11.6-r0 \
-    git 
+    git
 
 WORKDIR /build
 
@@ -39,15 +33,12 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
-    sed 
-
+    sed
 WORKDIR /root
 COPY --from=builder /build/root/ /
-
-# Install Python package
-RUN apk add --no-cache py3-pip && pip3 install websocket-client
 
 # Run script
 COPY run.sh /
 RUN chmod a+x /run.sh
+
 CMD [ "/run.sh" ]
