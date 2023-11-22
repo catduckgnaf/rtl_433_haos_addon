@@ -41,8 +41,6 @@ RUN apk add --no-cache libusb \
     librtlsdr \
     sed 
 
-RUN pip3 install websocket-client
-
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
@@ -50,7 +48,7 @@ RUN \
     pip install \
         --no-cache-dir \
         --prefer-binary \
-        paho-mqtt \
+        websocket-client \
     \
 # Run script
 COPY run.sh /
