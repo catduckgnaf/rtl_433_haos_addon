@@ -77,11 +77,6 @@ start_rtl_433() {
             ;;
     }
 
-    rtl_433 -c "$conf_directory/$conf_file" $log_level $config_cli $rtl_433_args &
-    # Capture the process ID and add it to the array
-    rtl_433_pids+=($!)
-}
-
 # Check if the configuration directory exists and create it if not
 create_directory_if_not_exists "$conf_directory"
 
