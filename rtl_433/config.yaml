@@ -13,7 +13,7 @@ ports:
 ports_description:
   9433/tcp: Add-On Communication
 map:
-- homeassistant_config:rw
+- config:rw
 - share:rw
 services:
 - mqtt:want
