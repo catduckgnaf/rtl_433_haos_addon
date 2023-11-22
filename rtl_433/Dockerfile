@@ -44,7 +44,8 @@ RUN apk add --no-cache libusb \
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-RUN py3-pip install websocket-client 
+# Install Python package
+RUN apk add --no-cache py3-pip && pip3 install websocket-client
 
 # Run script
 COPY run.sh /
