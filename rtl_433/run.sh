@@ -41,24 +41,6 @@ download_file_if_not_exists() {
     fi
 }
 
-# Check if the configuration directory exists and create it if not
-create_directory_if_not_exists "$conf_directory"
-
-# Check if the log directory exists and create it if not
-create_directory_if_not_exists "$log_directory"
-
-# Download the configuration file if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
-
-# Check if the script directory exists and create it if not
-create_directory_if_not_exists "$script_directory"
-
-# Download the HTTP script if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
-
-# Download the MQTT script if it doesn't exist
-download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
-
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
     local log_level=$1
@@ -100,6 +82,23 @@ start_rtl_433() {
     rtl_433_pids+=($!)
 }
 
+# Check if the configuration directory exists and create it if not
+create_directory_if_not_exists "$conf_directory"
+
+# Check if the log directory exists and create it if not
+create_directory_if_not_exists "$log_directory"
+
+# Download the configuration file if it doesn't exist
+download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
+
+# Check if the script directory exists and create it if not
+create_directory_if_not_exists "$script_directory"
+
+# Download the HTTP script if it doesn't exist
+download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
+
+# Download the MQTT script if it doesn't exist
+download_file_if_not_exists "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
 
 # Set log level
 log_level=$(bashio::config "log_level")
