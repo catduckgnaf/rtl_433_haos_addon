@@ -46,7 +46,12 @@ RUN pip3 install websocket-client
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-
+RUN \
+    pip install \
+        --no-cache-dir \
+        --prefer-binary \
+        paho-mqtt \
+    \
 # Run script
 COPY run.sh /
 RUN chmod a+x /run.sh
