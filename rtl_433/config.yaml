@@ -9,12 +9,15 @@ arch:
 - aarch64
 - amd64
 ports:
-  9433/tcp: 9433
+  8433/tcp: 8433
 ports_description:
-  9433/tcp: Add-On Communication
+  8433/tcp: Add-On Communication
+host_network: true
 map:
 - config:rw
 - share:rw
+- addon_config:rw
+- homeassistant_config:rw
 services:
 - mqtt:want
 usb: true
