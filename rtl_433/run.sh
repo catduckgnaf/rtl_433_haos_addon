@@ -37,16 +37,6 @@ download_file_if_not_exists() {
     fi
 }
 
-# Set log level
-log_level=$(bashio::config "log_level")
-case "$log_level" in
-    "error") default_logging="-v" ;;
-    "warn") default_logging="-vv" ;;
-    "debug") default_logging="-vvv" ;;
-    "trace") default_logging="-vvvv" ;;
-    *) default_logging="-vv" ;; # Default to "warn" level
-esac
-
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
     local log_level=$1
@@ -90,7 +80,7 @@ start_rtl_433() {
 
 
 # Start rtl_433 processes based on the output options
-start_rtl_433 "$log_level" "$output_options"
+start_rtl_433 "$output_options"
 
 # Wait for rtl_433 processes to finish
 if [ ${#rtl_433_pids[@]} -eq 0 ]; then
