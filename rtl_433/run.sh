@@ -71,7 +71,7 @@ start_rtl_433() {
         *)
             handle_error 3 "Invalid or missing output options in the configuration"
             ;;
-    }
+    esac
 
     rtl_433 -c "$conf_directory/$conf_file" $log_level $config_cli $rtl_433_args &
     # Capture the process ID and add it to the array
