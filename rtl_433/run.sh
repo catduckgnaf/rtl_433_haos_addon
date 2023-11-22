@@ -37,6 +37,16 @@ download_file_if_not_exists() {
     fi
 }
 
+# Set log level
+log_level=$(bashio::config "log_level")
+case "$log_level" in
+    "error") default_logging="-v" ;;
+    "warn") default_logging="-vv" ;;
+    "debug") default_logging="-vvv" ;;
+    "trace") default_logging="-vvvv" ;;
+    *) default_logging="-vv" ;; # Default to "warn" level
+esac
+
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
     local log_level=$1
@@ -59,13 +69,13 @@ start_rtl_433() {
             local username="addons"
             config_cli=$(bashio::config "additional_commands")
             rtl_433_args="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id]"
-            echo "Starting rtl_433 with MQTT Option using $conf_file"
+            echo "Starting rtl_433 with MQTT Option using $conf_directory/$conf_file"
             ;;
 
         "custom")
             config_cli=$(bashio::config "additional_commands")
             rtl_433_args=""
-            echo "Starting rtl_433 with custom option using $conf_directory/$conf_file...so any errors are likely your fault"
+            echo "Starting rtl_433 with custom option using custom commands and $conf_directory/$conf_file...so any errors are likely your fault"
             ;;
 
         *)
