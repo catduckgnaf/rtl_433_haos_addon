@@ -39,12 +39,14 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
-    sed 
+    sed \
+    python3
 
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-RUN py3-pip install websocket-client 
+# Install Python package
+RUN pip3 install websocket-client
 
 # Run script
 COPY run.sh /
