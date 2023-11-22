@@ -13,9 +13,10 @@ RUN apk add --no-cache --virtual .buildDeps \
     librtlsdr-dev \
     cmake \
     linux-headers \
-    py3-pip=23.1.2-r0 \
-    python3-dev=3.11.6-r0 \
-    git 
+    git \
+    python3 \
+    py3-pip && pip3 install websocket-client
+    
 
 WORKDIR /build
 
@@ -40,13 +41,8 @@ ENV LANG C.UTF-8
 RUN apk add --no-cache libusb \
     librtlsdr \
     sed \
-    python3
-
 WORKDIR /root
 COPY --from=builder /build/root/ /
-
-# Install Python package
-RUN pip3 install websocket-client
 
 # Run script
 COPY run.sh /
