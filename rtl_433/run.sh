@@ -32,15 +32,6 @@ create_directory_if_not_exists() {
     fi
 }
 
-# Function to download a file if it doesn't exist
-download_file_if_not_exists() {
-    local url=$1
-    local destination=$2
-    if [ ! -f "$destination" ]; then
-        download_file "$url" "$destination"
-    fi
-}
-
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
     local output_options=$1
@@ -76,6 +67,11 @@ start_rtl_433() {
             handle_error 3 "Invalid or missing output options in the configuration"
             ;;
     }
+
+    rtl_433 -c "$conf_directory/$conf_file" $log_level $config_cli $rtl_433_args &
+    # Capture the process ID and add it to the array
+    rtl_433_pids+=($!)
+}
 
 # Check if the configuration directory exists and create it if not
 create_directory_if_not_exists "$conf_directory"
