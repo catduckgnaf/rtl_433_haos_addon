@@ -37,7 +37,8 @@ elif output_options=$(bashio::config "mqtt"); then
 
 elif output_options=$(bashio::config "custom"); then
     config_cli=$(bashio::config "additional_commands")
-    echo "Starting rtl_433 with custom option using $conf_directory/$conf_file...so any errors are likely your fault"    rtl_433 -c "$conf_directory/$conf_file" $conflig_cli &
+    echo "Starting rtl_433 with custom option using $conf_directory/$conf_file...so any errors are likely your fault"
+    rtl_433 -c "$conf_directory/$conf_file" $conflig_cli &
     rtl_433_pids+=($!)
 else
     handle_error 3 "No valid output options specified in the configuration"
