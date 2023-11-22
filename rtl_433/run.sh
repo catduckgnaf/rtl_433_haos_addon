@@ -43,8 +43,8 @@ download_file_if_not_exists() {
 
 # Function to start rtl_433 with appropriate options and capture the process ID
 start_rtl_433() {
-    local log_level=$1
-    local output_options=$2
+    local output_options=$1
+    local log_level=$2
 
     local config_cli
     local rtl_433_args
