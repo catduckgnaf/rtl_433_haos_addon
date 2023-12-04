@@ -96,7 +96,7 @@ case "$output_options" in
         port=1883
         username="addons"
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $default_logging "$config_cli" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
+        rtl_433 -c "$conf_directory/$conf_file" $default_logging "$config_cli" -F "mqtt://homeassistant.local:1883.retain=1,devices=rtl_433[/id]" &
         echo "Starting rtl_433 with MQTT Option using $conf_file"
         ;;
 
