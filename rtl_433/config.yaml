@@ -24,7 +24,7 @@ options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
   additional_commands: ''
-  mqtt_username: ''
+  mqtt_username: "addons"
   mqtt_password: ''
   host: core-mosquitto
   port: 1883
@@ -33,9 +33,8 @@ options:
   publish_all: true
   publish_advdata: false
   retain: true
-  discovery: true
+  discovery: false
   discovery_filter: "[TPMS]"
-  adapter: ''
   log_level: "warning"
 schema:
   rtl_433_conf_file: "str?"
@@ -53,5 +52,4 @@ schema:
   time_between: int?
   discovery: bool?
   discovery_filter: str?
-  adapter: str?
   log_level: list(warning|error|debug|trace)
