@@ -23,17 +23,17 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: list(websocket|mqtt|custom)?
-  additional_commands: ''
-  mqtt_username: "addons"
-  mqtt_password: ''
-  host: "core-mosquitto"
-  port: 1883
+  additional_commands: null
+  mqtt_username: null
+  mqtt_password: null
+  host: null
+  port: null
   mqtt_pub_topic: "homeassistant/rtl_433/rtl2MQTT"
   mqtt_sub_topic: "homeassistant/+/rtl2MQTT/undecoded"
-  publish_all: true
-  publish_advdata: false
-  retain: true
-  discovery: false
+  publish_all: null
+  publish_advdata: null
+  retain: null
+  discovery: null
   discovery_filter: "[TPMS]"
 schema:
   rtl_433_conf_file: "str?"
@@ -50,4 +50,3 @@ schema:
   retain: bool?
   discovery: bool?
   discovery_filter: str?
-  log_level: list(trace|debug|info|notice|warning|error|fatal)?
