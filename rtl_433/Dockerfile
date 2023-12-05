@@ -40,11 +40,17 @@ COPY --from=builder /build/root/ /
 
 # Run script
 COPY run.sh /
+
 RUN \
-    pip install \
+    apk add --no-cache \
+        python3 \
+        py3-pip \
+    \
+    && pip install \
         --no-cache-dir \
         --prefer-binary \
         paho-mqtt \
     \
     && chmod a+x /run.sh
+
 CMD [ "/run.sh" ]
