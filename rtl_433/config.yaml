@@ -42,9 +42,9 @@ schema:
   output_options: list(websocket|mqtt|custom)
   additional_commands: "str?"
   host: str
+  port: int
   mqtt_username: str?
   mqtt_password: str?
-  port: int
   mqtt_pub_topic: str?
   mqtt_sub_topic: str?
   publish_all: bool?
