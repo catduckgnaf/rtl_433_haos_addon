@@ -41,6 +41,7 @@ COPY --from=builder /build/root/ /
 # Run script
 COPY run.sh /
 
+
 RUN \
     apk add --no-cache \
         python3 \
@@ -51,5 +52,7 @@ RUN \
         --prefer-binary \
         paho-mqtt \
         websockets 
+
+RUN chmod +x /run.sh
 
 CMD [ "/run.sh" ]
