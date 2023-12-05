@@ -73,14 +73,26 @@ fi
 
 # Set log level
 case "$LOG_LEVEL" in
+    "fatal")
+        log_level="-v"
+        ;;
+    "critical")
+        log_level="-vv"
+        ;;
     "error")
         log_level="-v"
         ;;
-    "warn")
+    "warning")
         log_level="-vv"
         ;;
-    "debug")
+    "notice")
         log_level="-vvv"
+        ;;
+    "info")
+        log_level="-vvvv"
+        ;;
+    "debug")
+        log_level="-vvvv"
         ;;
     "trace")
         log_level="-vvvv"

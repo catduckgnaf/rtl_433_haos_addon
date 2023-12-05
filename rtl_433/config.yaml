@@ -1,5 +1,5 @@
 name: rtl_433
-version: "2023.12.03"
+version: "2023.12.04"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon
@@ -49,4 +49,4 @@ schema:
   retain: bool?
   discovery: bool?
   discovery_filter: str?
-  log_level: list(warning|error|debug|trace)?
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
