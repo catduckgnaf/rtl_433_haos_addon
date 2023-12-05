@@ -51,7 +51,6 @@ schema:
   publish_advdata: bool?
   retain: bool?
   time_between: int?
-  log_level: str?
   discovery: bool?
   discovery_filter: str?
   adapter: str?
