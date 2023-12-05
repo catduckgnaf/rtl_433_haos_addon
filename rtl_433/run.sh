@@ -11,9 +11,7 @@ discovery_device_name="rtl_433"
 
 
 # Get configuration values
-OUTPUT_OPTIONS=$(bashio::config 'OUTPUT_OPTIONS')
 ADDITIONAL_COMMANDS=$(bashio::config 'ADDITIONAL_COMMANDS')
-LOG_LEVEL=$(bashio::config 'LOG_LEVEL')
 MQTT_USERNAME=$(bashio::config 'MQTT_USERNAME')
 MQTT_PASSWORD=$(bashio::config 'MQTT_PASSWORD')
 MQTT_PUB_TOPIC=$(bashio::config 'MQTT_PUB_TOPIC')
@@ -102,26 +100,29 @@ case "$LOG_LEVEL" in
         ;;
 esac
 
-# Check the output options specified in the configuration
-case "$OUTPUT_OPTIONS" in
+output_options=$(bashio::config "output_options")
+
+case "$output_options" in
     "websocket")
         host="0.0.0.0"
         port=9443
-        output="-F http://$host:$port"
-        echo "Starting rtl_433 with $OUTPUT_OPTIONS using $conf_file"
+        rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
+        echo "Starting rtl_433 with http option using $conf_file"
         ;;
 
     "mqtt")
-        host=$(bashio::config "host")
-        port=$(bashio::config "port")
-        mqtt_username=$(bashio::config "mqtt_username")
-        mqtt_password=$(bashio::config "mqtt_password")
-        rtl_433 -c "$conf_directory/$conf_file" -F mqtt://${host}:${port},user=${username},pass=${password},retain=${retain},devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states &&
-        echo "Starting rtl_433 with $OUTPUT_OPTIONS using $conf_file"
+        host="core-mosquitto"
+        password=""
+        port=1883
+        username="addons"
+        rtl_433 -c "$conf_directory/$conf_file" -F mqtt://${host}:${port},user=${username},pass=${password},retain=${retain},devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states &
+        echo "Starting rtl_433 with MQTT Option using $conf_file"
         ;;
 
     "custom")
-        rtl_433 -c "$conf_directory/$conf_file" && "echo Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
+        config_cli=$(bashio::config "additional_commands")
+        rtl_433 -c "$conf_directory/$conf_file" $ADDITIONAL_COMMANDS &
+        echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
     *)
