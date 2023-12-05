@@ -49,7 +49,7 @@ fi
 
 # Download the HTTP script if it doesn't exist
 if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script" & 
 fi
 
 # Download the MQTT script if it doesn't exist
@@ -57,26 +57,6 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
 fi
 
-# Set log level
-log_level=$(bashio::config "log_level")
-
-case "$log_level" in
-    "error")
-        default_logging="-v"
-        ;;
-    "warn")
-        default_logging="-vv"
-        ;;
-    "debug")
-        default_logging="-vvv"
-        ;;
-    "trace")
-        default_logging="-vvvv"
-        ;;
-    *)
-        default_logging="-vvv" # Default to "debug" level
-        ;;
-esac
 
 # Check the output options specified in the configuration
 output_options=$(bashio::config "output_options")
@@ -85,8 +65,7 @@ case "$output_options" in
     "websocket")
         host="0.0.0.0"
         port=9443
-        config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $default_logging $config_cli -F "http://$host:$port" &
+        rtl_433 -c "$conf_directory/$conf_file" -F "http://$host:$port" &
         echo "Starting rtl_433 with http option using $conf_file"
         ;;
 
@@ -96,13 +75,13 @@ case "$output_options" in
         port=1883
         username="addons"
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $default_logging "$config_cli" -F "mqtt://homeassistant.local:1883.retain=1,devices=rtl_433[/id]" &
+        rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id]" &
         echo "Starting rtl_433 with MQTT Option using $conf_file"
         ;;
 
     "custom")
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" "$config_cli" &
+        rtl_433 -c "$conf_directory/$conf_file" $config_cli &
         echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
