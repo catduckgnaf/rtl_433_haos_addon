@@ -12,15 +12,8 @@ discovery_device_name="rtl_433"
 
 # Get configuration values
 ADDITIONAL_COMMANDS=$(bashio::config 'ADDITIONAL_COMMANDS')
-MQTT_USERNAME=$(bashio::config 'MQTT_USERNAME')
-MQTT_PASSWORD=$(bashio::config 'MQTT_PASSWORD')
-MQTT_PUB_TOPIC=$(bashio::config 'MQTT_PUB_TOPIC')
-MQTT_SUB_TOPIC=$(bashio::config 'MQTT_SUB_TOPIC')
-PUBLISH_ALL=$(bashio::config 'PUBLISH_ALL')
-PUBLISH_ADVDATA=$(bashio::config 'PUBLISH_ADVDATA')
 DISCOVERY=$(bashio::config 'DISCOVERY')
 DISCOVERY_FILTER=$(bashio::config 'DISCOVERY_FILTER')
-ADAPTER=$(bashio::config 'ADAPTER')
 
 # Function to handle errors and log them
 handle_error() {
