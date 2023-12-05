@@ -39,6 +39,11 @@ COPY --from=builder /build/root/ /
 
 # Run script
 COPY run.sh /
-RUN chmod a+x /run.sh
-
+RUN \
+    pip install \
+        --no-cache-dir \
+        --prefer-binary \
+        paho-mqtt \
+    \
+    && chmod a+x /run.sh
 CMD [ "/run.sh" ]
