@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.18
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
 FROM $BUILD_FROM as builder
 
 ENV LANG C.UTF-8
@@ -14,13 +14,12 @@ RUN apk add --no-cache --virtual .buildDeps \
 WORKDIR /build
 
 RUN git clone https://github.com/catduckgnaf/rtl_433
-WORKDIR /build/rtl_433/build
-RUN cmake ..
+WORKDIR ./rtl_433
 
 # Build a specific commit or tag.
 ARG rtl433GitRevision=master
 RUN git checkout ${rtl433GitRevision}
-WORKDIR /build/rtl_433/build
+WORKDIR ./build
 RUN cmake ..
 RUN make -j 4
 
@@ -40,19 +39,6 @@ COPY --from=builder /build/root/ /
 
 # Run script
 COPY run.sh /
-
-
-RUN \
-    apk add --no-cache \
-        python3 \
-        py3-pip \
-    \
-    && pip install \
-        --no-cache-dir \
-        --prefer-binary \
-        paho-mqtt \
-        websockets 
-
-RUN chmod +x /run.sh
+RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
