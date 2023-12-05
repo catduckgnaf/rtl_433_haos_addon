@@ -9,7 +9,10 @@ mqtt_script="rtl_433_mqtt_hass.py"
 discovery_topic="rtl_433/discovery"
 discovery_device_name="rtl_433"
 
+# Import bashio library
+source /usr/lib/hassio-addons/bashio
 
+# Get configuration values
 OUTPUT_OPTIONS=$(bashio::config 'OUTPUT_OPTIONS')
 ADDITIONAL_COMMANDS=$(bashio::config 'ADDITIONAL_COMMANDS')
 LOG_LEVEL=$(bashio::config 'LOG_LEVEL')
@@ -22,16 +25,6 @@ PUBLISH_ADVDATA=$(bashio::config 'PUBLISH_ADVDATA')
 DISCOVERY=$(bashio::config 'DISCOVERY')
 DISCOVERY_FILTER=$(bashio::config 'DISCOVERY_FILTER')
 ADAPTER=$(bashio::config 'ADAPTER')
-
-
-
-# Convert the booleans to integers (1 for true, 0 for false) in single lines
-# RETAIN=$( [ "$RETAIN" = "true" ] && echo 1 || echo 0 )
-# PUBLISH_ALL=$( [ "$PUBLISH_ALL" = "true" ] && echo 1 || echo 0 )
-# PUBLISH_ADVDATA=$( [ "$PUBLISH_ADVDATA" = "true" ] && echo 1 || echo 0 )
-# DISCOVERY=$( [ "$DISCOVERY" = "true" ] && echo 1 || echo 0 )
-
-
 
 # Initialize an array to store process IDs
 rtl_433_pids=()
@@ -84,9 +77,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
 fi
 
 # Set log level
-log_level=$(bashio::config "LOG_LEVEL")
-
-case "$log_level" in
+case "$LOG_LEVEL" in
     "error")
         log_level="-v"
         ;;
@@ -102,27 +93,26 @@ case "$log_level" in
     *)
         log_level="-vvv" # Default to "debug" level
         ;;
-
 esac
 
 # Check the output options specified in the configuration
-output_options=$(bashio::config "output_options")
-
-case "$output_options" in
+case "$OUTPUT_OPTIONS" in
     "websocket")
         host="0.0.0.0"
         port=9443
-        output=-F "http://$host:$port" && echo "Starting rtl_433 with $output_options using $conf_file"
+        output="-F http://$host:$port"
+        echo "Starting rtl_433 with $OUTPUT_OPTIONS using $conf_file"
         ;;
 
     "mqtt")
         host=$(bashio::config "host")
         port=$(bashio::config "port")
-        output=-F "mqtt://$host:$port,retain=1,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>" && echo "Starting rtl_433 with $output_options using $conf_file"
+        output="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>"
+        echo "Starting rtl_433 with $OUTPUT_OPTIONS using $conf_file"
         ;;
 
     "custom")
-        output=echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
+        output="echo Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
     *)
@@ -130,8 +120,23 @@ case "$output_options" in
         ;;
 esac
 
-rtl_433 -c "$conf_directory/$conf_file" $output $log_level $ADDITIONAL_COMMANDS
+rtl_433 -c "$conf_directory/$conf_file" $output $log_level $ADDITIONAL_COMMANDS &
 
+# Store the process ID of rtl_433
+rtl_433_pid=$!
+rtl_433_pids+=("$rtl_433_pid")
+
+# Function to handle cleanup and termination
+cleanup() {
+    # Terminate rtl_433 process
+    for pid in "${rtl_433_pids[@]}"; do
+        kill "$pid"
+    done
+    exit 0
+}
+
+# Trap the termination signal and call the cleanup function
+trap cleanup SIGTERM SIGINT
 
 # Instead of waiting for any process to finish, loop indefinitely
 while true; do
