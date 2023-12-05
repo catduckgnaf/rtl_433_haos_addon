@@ -45,8 +45,6 @@ RUN \
     apk add --no-cache \
         python3 \
         py3-pip \
-        build-essential \
-        bluez-dev \
     \
     && pip install \
         --no-cache-dir \
@@ -54,6 +52,4 @@ RUN \
         paho-mqtt \
         websockets \
         build-essential 
-RUN pip install --extra-index-url=https://www.piwheels.org/simple TheengsGateway==1.1.0   \
-    && chmod a+x /run.sh
 CMD [ "/run.sh" ]
