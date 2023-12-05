@@ -23,10 +23,48 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "websocket"
-  additional_commands: ""
+  additional_commands: ''
+  mqtt_username: ''
+  mqtt_password: ''
+  mqtt_port: 1883
+  mqtt_pub_topic: homeassistant/rtl_433/rtl2MQTT
+  mqtt_sub_topic: homeassistant/+/rtl2MQTT/undecoded
+  publish_all: true
+  publish_advdata: false
+  scan_dur: 10
+  retain: true
+  time_between: 60
+  discovery: true
+  discovery_topic: "rtl_433/discovery"
+  discovery_device_name: "rtl_433"
+  discovery_filter: "[TPMS]"
+  adapter: ''
   log_level: "warning"
 schema:
   rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt|custom)
   additional_commands: "str?"
   log_level: list(warning|error|debug|trace)
+  host: str
+  mqtt_username: str?
+  mqtt_password: str?
+  port: int
+  mqtt_pub_topic: str?
+  mqtt_sub_topic: str?
+  publish_all: bool?
+  publish_advdata: bool?
+  retain: bool?
+  scan_dur: int?
+  time_between: int?
+  log_level: str?
+  discovery: bool?
+  discovery_topic: str?
+  discovery_device_name: str?
+  discovery_filter: str?
+  adapter: str?
+  scanning_mode: str?
+  time_sync: str?
+  time_format: bool?
+
+
+    rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>"
