@@ -69,36 +69,6 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
-# Set log level
-case "$LOG_LEVEL" in
-    "fatal")
-        log_level="-v"
-        ;;
-    "critical")
-        log_level="-vv"
-        ;;
-    "error")
-        log_level="-v"
-        ;;
-    "warning")
-        log_level="-vv"
-        ;;
-    "notice")
-        log_level="-vvv"
-        ;;
-    "info")
-        log_level="-vvvv"
-        ;;
-    "debug")
-        log_level="-vvvv"
-        ;;
-    "trace")
-        log_level="-vvvv"
-        ;;
-    *)
-        log_level="-vvv" # Default to "debug" level
-        ;;
-esac
 
 output_options=$(bashio::config "output_options")
 
