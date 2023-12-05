@@ -31,12 +31,8 @@ options:
   mqtt_sub_topic: homeassistant/+/rtl2MQTT/undecoded
   publish_all: true
   publish_advdata: false
-  scan_dur: 10
   retain: true
-  time_between: 60
   discovery: true
-  discovery_topic: "rtl_433/discovery"
-  discovery_device_name: "rtl_433"
   discovery_filter: "[TPMS]"
   adapter: ''
   log_level: "warning"
@@ -44,7 +40,6 @@ schema:
   rtl_433_conf_file: "str?"
   output_options: list(websocket|mqtt|custom)
   additional_commands: "str?"
-  log_level: list(warning|error|debug|trace)
   host: str
   mqtt_username: str?
   mqtt_password: str?
@@ -54,11 +49,9 @@ schema:
   publish_all: bool?
   publish_advdata: bool?
   retain: bool?
-  scan_dur: int?
   time_between: int?
   log_level: str?
   discovery: bool?
-  discovery_topic: str?
-  discovery_device_name: str?
   discovery_filter: str?
   adapter: str?
+  log_level: list(warning|error|debug|trace)
