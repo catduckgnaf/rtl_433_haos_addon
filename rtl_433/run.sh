@@ -26,10 +26,11 @@ ADAPTER=$(bashio::config 'ADAPTER')
 
 
 # Convert the booleans to integers (1 for true, 0 for false) in single lines
-RETAIN=$( [ "$RETAIN" = "true" ] && echo 1 || echo 0 )
-PUBLISH_ALL=$( [ "$PUBLISH_ALL" = "true" ] && echo 1 || echo 0 )
-PUBLISH_ADVDATA=$( [ "$PUBLISH_ADVDATA" = "true" ] && echo 1 || echo 0 )
-DISCOVERY=$( [ "$DISCOVERY" = "true" ] && echo 1 || echo 0 )
+# RETAIN=$( [ "$RETAIN" = "true" ] && echo 1 || echo 0 )
+# PUBLISH_ALL=$( [ "$PUBLISH_ALL" = "true" ] && echo 1 || echo 0 )
+# PUBLISH_ADVDATA=$( [ "$PUBLISH_ADVDATA" = "true" ] && echo 1 || echo 0 )
+# DISCOVERY=$( [ "$DISCOVERY" = "true" ] && echo 1 || echo 0 )
+
 
 
 # Initialize an array to store process IDs
@@ -101,6 +102,7 @@ case "$log_level" in
     *)
         log_level="-vvv" # Default to "debug" level
         ;;
+
 esac
 
 # Check the output options specified in the configuration
@@ -116,7 +118,7 @@ case "$output_options" in
     "mqtt")
         host=$(bashio::config "host")
         port=$(bashio::config "port")
-        output=-F "mqtt://$host:$port,retain=$retain,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>" && echo "Starting rtl_433 with $output_options using $conf_file"
+        output=-F "mqtt://$host:$port,retain=1,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>" && echo "Starting rtl_433 with $output_options using $conf_file"
         ;;
 
     "custom")
