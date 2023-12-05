@@ -24,9 +24,6 @@ DISCOVERY=$(bashio::config 'DISCOVERY')
 DISCOVERY_FILTER=$(bashio::config 'DISCOVERY_FILTER')
 ADAPTER=$(bashio::config 'ADAPTER')
 
-# Initialize an array to store process IDs
-rtl_433_pids=()
-
 # Function to handle errors and log them
 handle_error() {
     local exit_code=$1
@@ -119,23 +116,6 @@ case "$OUTPUT_OPTIONS" in
         handle_error 3 "Invalid or missing output options in the configuration"
         ;;
 esac
-
-
-# Store the process ID of rtl_433
-rtl_433_pid=$!
-rtl_433_pids+=("$rtl_433_pid")
-
-# Function to handle cleanup and termination
-cleanup() {
-    # Terminate rtl_433 process
-    for pid in "${rtl_433_pids[@]}"; do
-        kill "$pid"
-    done
-    exit 0
-}
-
-# Trap the termination signal and call the cleanup function
-trap cleanup SIGTERM SIGINT
 
 # Instead of waiting for any process to finish, loop indefinitely
 while true; do
