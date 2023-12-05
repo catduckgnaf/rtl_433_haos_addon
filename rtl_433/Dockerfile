@@ -51,5 +51,4 @@ RUN \
         --prefer-binary \
         paho-mqtt \
         websockets \
-        build-essential 
 CMD [ "/run.sh" ]
