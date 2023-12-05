@@ -50,5 +50,6 @@ RUN \
         --no-cache-dir \
         --prefer-binary \
         paho-mqtt \
-        websockets \
+        websockets 
+
 CMD [ "/run.sh" ]
