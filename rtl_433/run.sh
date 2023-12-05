@@ -26,7 +26,7 @@ ADAPTER=$(bashio::config 'ADAPTER')
 
 
 # Convert the booleans to integers (1 for true, 0 for false) in single lines
-RETIAN=$( [ "$RETAIN" = "true" ] && echo 1 || echo 0 )
+RETAIN=$( [ "$RETAIN" = "true" ] && echo 1 || echo 0 )
 PUBLISH_ALL=$( [ "$PUBLISH_ALL" = "true" ] && echo 1 || echo 0 )
 PUBLISH_ADVDATA=$( [ "$PUBLISH_ADVDATA" = "true" ] && echo 1 || echo 0 )
 DISCOVERY=$( [ "$DISCOVERY" = "true" ] && echo 1 || echo 0 )
