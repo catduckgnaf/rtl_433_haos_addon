@@ -10,7 +10,7 @@ discovery_topic="rtl_433/discovery"
 discovery_device_name="rtl_433"
 
 
-OUTPUTL_OPTIONS=$(bashio::config 'OUTPUT_OPTIONS')
+OUTPUT_OPTIONS=$(bashio::config 'OUTPUT_OPTIONS')
 ADDITIONAL_COMMANDS=$(bashio::config 'ADDITIONAL_COMMANDS')
 LOG_LEVEL=$(bashio::config 'LOG_LEVEL')
 MQTT_USERNAME=$(bashio::config 'MQTT_USERNAME')
@@ -83,7 +83,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
 fi
 
 # Set log level
-log_level=$(bashio::config "log_level")
+log_level=$(bashio::config "LOG_LEVEL")
 
 case "$log_level" in
     "error")
