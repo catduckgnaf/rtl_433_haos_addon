@@ -14,12 +14,13 @@ RUN apk add --no-cache --virtual .buildDeps \
 WORKDIR /build
 
 RUN git clone https://github.com/catduckgnaf/rtl_433
-WORKDIR ./rtl_433
+WORKDIR /build/rtl_433/build
+RUN cmake ..
 
 # Build a specific commit or tag.
 ARG rtl433GitRevision=master
 RUN git checkout ${rtl433GitRevision}
-WORKDIR ./build
+WORKDIR /build/rtl_433/build
 RUN cmake ..
 RUN make -j 4
 
