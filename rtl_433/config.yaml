@@ -49,7 +49,6 @@ schema:
   publish_all: bool?
   publish_advdata: bool?
   retain: bool?
-  time_between: int?
   discovery: bool?
   discovery_filter: str?
   log_level: list(warning|error|debug|trace)
