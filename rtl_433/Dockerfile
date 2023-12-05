@@ -51,6 +51,8 @@ RUN \
         --no-cache-dir \
         --prefer-binary \
         paho-mqtt \
+        requests \
+        TheengsGateway \
     \
     && chmod a+x /run.sh
 
