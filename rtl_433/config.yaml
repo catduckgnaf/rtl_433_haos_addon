@@ -22,7 +22,7 @@ usb: true
 udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
-  output_options: list(websocket|mqtt|custom)?
+  output_options: "mqtt"
   additional_commands: null
   discovery: false
   discovery_filter: "[TPMS]"
