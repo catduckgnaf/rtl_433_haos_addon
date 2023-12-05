@@ -26,7 +26,8 @@ options:
   additional_commands: ''
   mqtt_username: ''
   mqtt_password: ''
-  mqtt_port: 1883
+  host: 1883
+  port: 1883
   mqtt_pub_topic: homeassistant/rtl_433/rtl2MQTT
   mqtt_sub_topic: homeassistant/+/rtl2MQTT/undecoded
   publish_all: true
