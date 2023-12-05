@@ -49,7 +49,7 @@ fi
 
 # Download the HTTP script if it doesn't exist
 if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script" & 
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"  
 fi
 
 # Download the MQTT script if it doesn't exist
