@@ -9,8 +9,6 @@ mqtt_script="rtl_433_mqtt_hass.py"
 discovery_topic="rtl_433/discovery"
 discovery_device_name="rtl_433"
 
-# Import bashio library
-source /usr/lib/hassio-addons/bashio
 
 # Get configuration values
 OUTPUT_OPTIONS=$(bashio::config 'OUTPUT_OPTIONS')
