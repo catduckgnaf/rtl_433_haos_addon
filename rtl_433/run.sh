@@ -105,12 +105,14 @@ case "$OUTPUT_OPTIONS" in
     "mqtt")
         host=$(bashio::config "host")
         port=$(bashio::config "port")
-        output="-F mqtt://$host:$port,retain=1,devices=rtl_433[/id],devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/st>"
+        mqtt_username=$(bashio::config "mqtt_username")
+        mqtt_password=$(bashio::config "mqtt_password")
+        rtl_433 -c "$conf_directory/$conf_file" -F mqtt://${host}:${port},user=${username},pass=${password},retain=${retain},devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states &&
         echo "Starting rtl_433 with $OUTPUT_OPTIONS using $conf_file"
         ;;
 
     "custom")
-        output="echo Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
+        rtl_433 -c "$conf_directory/$conf_file" && "echo Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
     *)
@@ -118,7 +120,6 @@ case "$OUTPUT_OPTIONS" in
         ;;
 esac
 
-rtl_433 -c "$conf_directory/$conf_file" $output
 
 # Store the process ID of rtl_433
 rtl_433_pid=$!
