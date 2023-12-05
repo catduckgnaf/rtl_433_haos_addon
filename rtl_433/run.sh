@@ -118,7 +118,7 @@ case "$OUTPUT_OPTIONS" in
         ;;
 esac
 
-rtl_433 -c "$conf_directory/$conf_file" $output $log_level $ADDITIONAL_COMMANDS
+rtl_433 -c "$conf_directory/$conf_file" $output
 
 # Store the process ID of rtl_433
 rtl_433_pid=$!
