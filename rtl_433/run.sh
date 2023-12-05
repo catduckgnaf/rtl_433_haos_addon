@@ -78,7 +78,7 @@ case "$output_options" in
         password=""
         port=1883
         username="addons"
-        rtl_433 -c "$conf_directory/$conf_file" -F mqtt://${host}:${port},user=${username},pass=${password},retain=1,devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states &
+        rtl_433 -c "$conf_directory/$conf_file" -F mqtt://$host:$port,user=$username,pass=${password},retain=1,devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states &
         echo "Starting rtl_433 with MQTT Option using $conf_file"
         ;;
 
