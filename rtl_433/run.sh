@@ -6,6 +6,8 @@ log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
+host="core-mosquitto"
+port=1883
 
 # Initialize an array to store process IDs
 rtl_433_pids=()
@@ -49,7 +51,7 @@ fi
 
 # Download the HTTP script if it doesn't exist
 if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"  
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script"
 fi
 
 # Download the MQTT script if it doesn't exist
