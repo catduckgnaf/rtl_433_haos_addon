@@ -13,8 +13,6 @@ discovery_prefix="rtl_433_discovery"
 discovery_interval=600
 discovery_ids=$(bashio::config 'discovery_ids')
 
-
-
 # Initialize an array to store process IDs
 rtl_433_pids=()
 
@@ -57,12 +55,12 @@ fi
 
 # Download the HTTP script if it doesn't exist
 if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script && chmod +x $script_directory/$http_script"
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script" && chmod +x "$script_directory/$http_script"
 fi
 
 # Download the MQTT script if it doesn't exist
 if [ ! -f "$script_directory/$mqtt_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script && chmod +x $script_directory/$mqtt_script"
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
 rtl_433 -c "$conf_directory/$conf_file"
@@ -70,9 +68,7 @@ echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 if bashio::config.true 'discovery'; then
     echo "Starting discovery script"
-    python3 -u $script_directory/rtl_433_mqtt_hass.py  -H $host -p $port -R "$discovery_topic" -D "$discovery_prefix" -i $discovery_interval --ids "$discovery_ids"
-
-
+    python3 -u "$script_directory/rtl_433_mqtt_hass.py" -H "$discovery_host" -p "$discovery_port" -R "$discovery_topic" -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
     rtl_433_pids+=($!)
 fi
 
