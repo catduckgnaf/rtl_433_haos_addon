@@ -23,4 +23,4 @@ options:
 schema:
   rtl_433_conf_file: "str?"
   discovery: bool
-  discovery_ids: "?str?"
+  discovery_ids: "str?"
