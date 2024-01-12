@@ -25,4 +25,3 @@ options:
   output_options: "mqtt"
 schema:
   rtl_433_conf_file: "str?"
-  output_options: list(websocket|mqtt|custom)?
