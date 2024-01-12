@@ -18,7 +18,6 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   discovery: false
-  discovery_host: "core-mosquitto"
   discovery_ids: "1+42+32"
 schema:
   rtl_433_conf_file: "str?"
