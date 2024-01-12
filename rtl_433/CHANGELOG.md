@@ -1,4 +1,4 @@
-## [2023.11.4] - 11/22/2023
+## [2023.1.1] - 11/22/2023
 
 Added custom command support, as well as working http api. In addition to supporting legacy mqtt.
 
