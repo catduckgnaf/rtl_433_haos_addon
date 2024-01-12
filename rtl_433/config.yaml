@@ -1,5 +1,5 @@
 name: rtl_433
-version: "2023.12.0"
+version: "2024.1.0"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon
@@ -23,10 +23,6 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   output_options: "mqtt"
-  host: "core-mosquitto"
-  port: 1883
 schema:
   rtl_433_conf_file: "str?"
-  host: str?
-  port: int
   output_options: list(websocket|mqtt|custom)?
