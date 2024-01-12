@@ -17,8 +17,8 @@ usb: true
 udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
-  enable_discovery: false
+  discovery: false
 
 schema:
   rtl_433_conf_file: "str?"
-  enable_discovery: int
+  discovery: bool
