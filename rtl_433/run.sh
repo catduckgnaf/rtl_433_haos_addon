@@ -76,13 +76,14 @@ case "$output_options" in
         password=""
         port=1883
         username="addons"
-        rtl_433 -c "$conf_directory/$conf_file" -F "mqtt://$host:$port,retain=1,devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states" &
+        retain=1
+        rtl_433 -c "$conf_directory/$conf_file" -F "output mqtt://\${host}:\${port},user=\${username},pass=\${password},retain=\${retain},devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl433/states" &
         echo "Starting rtl_433 with MQTT Option using $conf_file"
         ;;
 
     "custom")
         config_cli=$(bashio::config "additional_commands")
-        rtl_433 -c "$conf_directory/$conf_file" $config_cli &
+        rtl_433 -c "$conf_directory/$conf_file" &
         echo "Starting rtl_433 with custom option using $conf_file....Any errors are almost certainly yours"
         ;;
 
