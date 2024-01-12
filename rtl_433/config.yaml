@@ -8,11 +8,6 @@ arch:
 - armv7
 - aarch64
 - amd64
-ports:
-  9433/tcp: 
-ports_description:
-  9433/tcp: Add-On WS Communication
-host_network: true
 map:
 - config:rw
 - share:rw
