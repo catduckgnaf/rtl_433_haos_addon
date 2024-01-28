@@ -1,5 +1,5 @@
 name: rtl_433
-version: "2024.1.4"
+version: "2024.1.5"
 description: Receive wireless sensor data via an SDR dongle and rtl_433
 slug: rtl_433
 url: https://github.com/catduckgnaf/rtl_433_haos_addon
@@ -18,7 +18,7 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   discovery: false
-  rtl_device_id_1: "20_dsc_security_contact"
+  rtl_device_id_1: ""
   # rtl_device_id_2: ""
   # rtl_device_id_3: ""
   # rtl_device_id_4: ""

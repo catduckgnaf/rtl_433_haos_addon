@@ -19,7 +19,6 @@ rtl_device_id_5=$(bashio::config 'rtl_device_id_5')
 rtl_device_id_6=$(bashio::config 'rtl_device_id_6')
 rtl_device_id_7=$(bashio::config 'rtl_device_id_7')
 rtl_device_id_8=$(bashio::config 'rtl_device_id_8')
-device_id=$(bashio::config '20_dsc_security_contact')
 
 
 # Initialize an array to store process IDs
