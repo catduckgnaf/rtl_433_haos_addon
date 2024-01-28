@@ -73,7 +73,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
 fi
 
 rtl_433 -c "$conf_directory/$conf_file" -R $rtl_device_id_1
-echo "Starting rtl_433 with $conf_file located in $conf_directory"
+echo "Starting rtl_433 with $conf_file located in $conf_directory with devices $rtl_device_id_1
 
 if bashio::config.true 'discovery'; then
     echo "Starting discovery script"
