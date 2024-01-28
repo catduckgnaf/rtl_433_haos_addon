@@ -19,7 +19,6 @@ rtl_device_id_5=$(bashio::config 'rtl_device_id_5')
 rtl_device_id_6=$(bashio::config 'rtl_device_id_6')
 rtl_device_id_7=$(bashio::config 'rtl_device_id_7')
 rtl_device_id_8=$(bashio::config 'rtl_device_id_8')
-1000_none="none"
 1_silvercrest_remote_control=1
 2_rubicson_tfa_30_3197_infactory_pt_310_temperature_sensor=2
 3_prologue_freetec_nc_7104_nc_7159_675_temperature_sensor=3
