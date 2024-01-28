@@ -75,12 +75,12 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
-rtl_433 -c "$conf_directory/$conf_file" -R $device_id_1
+rtl_433 -R $device_id_1 -F log -c "$conf_directory/$conf_file" 
 echo "Starting rtl_433 with $conf_file located in $conf_directory with devices $device_id_1
 
 if bashio::config.true 'discovery'; then
     echo "Starting discovery script"
-    python3 -u "$script_directory/rtl_433_mqtt_hass.py" -H "$discovery_host" -p "$discovery_port" -R "$discovery_topic" -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
+    python3 -u "$script_directory/$mqtt_script" -H "$discovery_host" -p "$discovery_port" -R "$discovery_topic" -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
     rtl_433_pids+=($!)
 fi
 
