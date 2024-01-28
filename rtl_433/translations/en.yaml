@@ -17,3 +17,14 @@ configuration:
   mqtt_password:
     name: MQTT Password (default blank)
     description: Leave blank to connect to Home Assistant mosquitto broker automatically
+
+  rtl_device_id_1:
+    name: add your device ID for discovery and/or to search
+  1: 
+    name: 1 this is a test
+    description: is this working?
+  rtl_device_id_2:
+    name: add your device ID for discovery and/or to search
+  2: 
+    name: 2 this is a test
+    description: is this working?

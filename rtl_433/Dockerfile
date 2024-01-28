@@ -38,6 +38,8 @@ WORKDIR /root
 COPY --from=builder /build/root/ /
 
 # Run script
+COPY /config/rtl_433/scripts/rtl_433_mqtt_hass.py /
+RUN chmod a+x /rtl_433_mqtt_hass.py
 COPY run.sh /
 RUN chmod a+x /run.sh
 
