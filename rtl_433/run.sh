@@ -72,7 +72,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
-rtl_433 -c "$conf_directory/$conf_file"
+rtl_433 -c "$conf_directory/$conf_file" -R $rtl_device_id_1
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 if bashio::config.true 'discovery'; then
