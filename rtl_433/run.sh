@@ -19,7 +19,7 @@ rtl_device_id_5=$(bashio::config 'rtl_device_id_5')
 rtl_device_id_6=$(bashio::config 'rtl_device_id_6')
 rtl_device_id_7=$(bashio::config 'rtl_device_id_7')
 rtl_device_id_8=$(bashio::config 'rtl_device_id_8')
-20=$(bashio::config '20_dsc_security_contact')
+device_id=$(bashio::config '20_dsc_security_contact')
 
 
 # Initialize an array to store process IDs
@@ -72,7 +72,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
-rtl_433 -c "$conf_directory/$conf_file" -R 130
+rtl_433 -c "$conf_directory/$conf_file" -R $device_id
 echo "Starting rtl_433 with $conf_file located in $conf_directory with devices
 
 if bashio::config.true 'discovery'; then
