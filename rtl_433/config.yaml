@@ -18,8 +18,22 @@ udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
   discovery: false
-  discovery_ids: "1+42+32"
+  rtl_device_id_1: 
+  rtl_device_id_2:
+  rtl_device_id_2: 
+  rtl_device_id_2: 
+  rtl_device_id_2: 
+  rtl_device_id_2:
+  rtl_device_id_2: 
+  rtl_device_id_2: 
 schema:
   rtl_433_conf_file: "str?"
   discovery: bool
-  discovery_ids: "str?"
+  rtl_device_id_1: int
+  rtl_device_id_2:
+  rtl_device_id_2: 
+  rtl_device_id_2: 
+  rtl_device_id_2: 
+  rtl_device_id_2:
+  rtl_device_id_2: 
+  rtl_device_id_2: 
