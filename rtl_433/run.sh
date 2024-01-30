@@ -6,11 +6,11 @@ log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
-discovery_host="core-mosquitto"
-discovery_port=1883
-discovery_topic="devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl43"
-discovery_prefix="rtl_433_discovery"
-discovery_interval=600
+host=$(bashio::config 'host')
+port=$(bashio::config 'port')
+topic=$(bashio::config 'topic')
+discovery_prefix=$(bashio::config 'discovery_prefix')
+discovery_interval=$(bashio::config 'discovery_interval')
 device_id_1=$(bashio::config 'rtl_device_id_1')
 device_id_2=$(bashio::config 'rtl_device_id_2')
 device_id_3=$(bashio::config 'rtl_device_id_3')
@@ -75,7 +75,7 @@ if [ ! -f "$script_directory/$mqtt_script" ]; then
     download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 fi
 
-rtl_433 -F log -c "$conf_directory/$conf_file"
+rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory
 
 if bashio::config.true 'discovery'; then
