@@ -24,3 +24,22 @@ configuration:
   rtl_device_id_2:
     name: add your device ID for discovery and/or to search
     description: add your device ID to use with rtl_433
+  rtl_device_id_3:
+    name: rtl_433 device
+    description: add your device ID to use with rtl_433
+  rtl_device_id_4:
+    name: add your device ID for discovery and/or to search
+    description: add your device ID to use with rtl_433
+  rtl_device_id_5:
+    name: rtl_433 device
+    description: add your device ID to use with rtl_433
+  rtl_device_id_6:
+    name: add your device ID for discovery and/or to search
+    description: add your device ID to use with rtl_433
+  rtl_device_id_7:
+    name: rtl_433 device
+    description: add your device ID to use with rtl_433
+  rtl_device_id_8:
+    name: add your device ID for discovery and/or to search
+    description: add your device ID to use with rtl_433
+
