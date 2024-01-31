@@ -5,10 +5,10 @@ configuration:
   additional_commands:
     name: Additional Commands
     description: Enter command line options you want passed through. This is required if using "custom" output_options
-  mqtt_host:
+  host:
     name: MQTT Host (default blank)
     description: Leave blank to connect to Home Assistant mosquitto broker automatically
-  mqtt_port:
+  port:
     name: MQTT Port (default blank)
     description: Leave blank to connect to Home Assistant mosquitto broker automatically
   mqtt_user:
@@ -19,27 +19,27 @@ configuration:
     description: Leave blank to connect to Home Assistant mosquitto broker automatically
 
   rtl_device_id_1:
-    name: rtl_433 device
+    name: Select Protocol 1
     description: add your device ID to use with rtl_433
   rtl_device_id_2:
-    name: add your device ID for discovery and/or to search
-    description: add your device ID to use with rtl_433
+    name: Select Protocol 2
+    description: Add your device ID to use with rtl_433
   rtl_device_id_3:
-    name: rtl_433 device
+    name: Select Protocol 3
     description: add your device ID to use with rtl_433
-  rtl_device_id_4:
-    name: add your device ID for discovery and/or to search
+  rtl_device_id_4: 
+    name: Select Protocol 4
     description: add your device ID to use with rtl_433
   rtl_device_id_5:
-    name: rtl_433 device
+    name: Select Protocol 5
     description: add your device ID to use with rtl_433
   rtl_device_id_6:
-    name: add your device ID for discovery and/or to search
+    name: Select Protocol 6
     description: add your device ID to use with rtl_433
   rtl_device_id_7:
-    name: rtl_433 device
+    name: Select Protocol 7
     description: add your device ID to use with rtl_433
   rtl_device_id_8:
-    name: add your device ID for discovery and/or to search
+    name: Select Protocol 8
     description: add your device ID to use with rtl_433
 
