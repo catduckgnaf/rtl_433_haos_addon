@@ -19,7 +19,10 @@ By Default all IDs are disabled in the config file. They have a description next
 
 # Updates
 
-This tracks the "Next" Branch, but on a rolling release schedule. This allows the community to get the "latest" releases, but still have updates, (not needing to unstintall and reinstall). Also by exerting more control, we can make sure no breaking changes. 
+Click the update button? Duh
+
+The discovery script, and the latest rtl_433.conf are downloaded at run time. Currently the discovery script gets overwritten, and the rtl_433.conf does not.
+So please periodically check for any updates on the rtl_433.conf script.
 
 
 ## Pre-requesites and instructions:
