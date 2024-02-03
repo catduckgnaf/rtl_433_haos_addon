@@ -12,19 +12,7 @@ discovery_topic=$(bashio::config 'topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_id')
-device_id_1=$(bashio::config 'rtl_device_id_1')
-device_id_2=$(bashio::config 'rtl_device_id_2')
-device_id_3=$(bashio::config 'rtl_device_id_3')
-device_id_4=$(bashio::config 'rtl_device_id_4')
-device_id_5=$(bashio::config 'rtl_device_id_5')
-device_id_6=$(bashio::config 'rtl_device_id_6')
-device_id_7=$(bashio::config 'rtl_device_id_7')
-device_id_8=$(bashio::config 'rtl_device_id_8')
 
-# set device ID to correct format
-if [ "$device_id_1" = "20_dsc_security_contact" ]; then
-    discovery_ids=23
-fi
 
 # Initialize an array to store process IDs
 rtl_433_pids=()
