@@ -6,6 +6,7 @@ log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
+discovery=$(bashio::config 'discovery')
 discovery_host=$(bashio::config 'host')
 discovery_port=$(bashio::config 'port')
 discovery_topic=$(bashio::config 'topic')
