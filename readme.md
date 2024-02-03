@@ -22,7 +22,7 @@ By Default all IDs are disabled in the config file. They have a description next
 Click the update button? Duh
 
 The discovery script, and the latest rtl_433.conf are downloaded at run time. Currently the discovery script gets overwritten, and the rtl_433.conf does not.
-So please periodically check for any updates on the rtl_433.conf script.
+So please periodically check for any updates on the rtl_433.conf.
 
 
 ## Pre-requesites and instructions:
