@@ -1,45 +1,34 @@
 configuration:
-  output_options:
-    name: Output Method
-    description: How to deliver device messages to Home Assistant
-  additional_commands:
-    name: Additional Commands
-    description: Enter command line options you want passed through. This is required if using "custom" output_options
-  host:
-    name: MQTT Host (default blank)
-    description: Leave blank to connect to Home Assistant mosquitto broker automatically
-  port:
-    name: MQTT Port (default blank)
-    description: Leave blank to connect to Home Assistant mosquitto broker automatically
-  mqtt_user:
-    name: MQTT User (default blank)
-    description: Leave blank to connect to Home Assistant mosquitto broker automatically
-  mqtt_password:
-    name: MQTT Password (default blank)
-    description: Leave blank to connect to Home Assistant mosquitto broker automatically
+  discovery_host:
+    name: Discovery Host (default blank)
+    description: These options only affect the discovery script if enabled. 
+  discovery_port:
+    name: Discovery Port (default blank)
+    description: These options only affect the discovery script if enabled. 
+
 
   rtl_device_id_1:
     name: Select Protocol 1
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_2:
     name: Select Protocol 2
-    description: Add your device ID to use with rtl_433
+    description: Add your protocol ID to use with rtl_433
   rtl_device_id_3:
     name: Select Protocol 3
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_4: 
     name: Select Protocol 4
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_5:
     name: Select Protocol 5
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_6:
     name: Select Protocol 6
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_7:
     name: Select Protocol 7
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
   rtl_device_id_8:
     name: Select Protocol 8
-    description: add your device ID to use with rtl_433
+    description: add your protocol ID to use with rtl_433
 
