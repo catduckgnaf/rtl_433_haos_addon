@@ -1,3 +1,6 @@
+
+## [2024.2.2] - 2/3/2024
+
 ## [2024.2.2] - 2/3/2024
 
 Work done to integrate  discovery with filtering, WIP

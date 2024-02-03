@@ -2,7 +2,9 @@
 
 ## About
 
-Th
+rtl_433 settings are all edited in /config/rtl_433/rtl_433.conf
+
+Discovery is edited in add-on config (currently WIP)
 
 ##
 

@@ -1,11 +1,13 @@
 configuration:
   discovery_host:
-    name: Discovery Host (default blank)
+    name: Discovery Host 
     description: These options only affect the discovery script if enabled. 
   discovery_port:
-    name: Discovery Port (default blank)
+    name: Discovery Port 
     description: These options only affect the discovery script if enabled. 
-
+  discovery_ids: 
+    name: Discovery ID
+    description: Despite the name, only one works at this time
 
   rtl_device_id_1:
     name: Select Protocol 1

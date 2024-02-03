@@ -66,15 +66,14 @@ if [ ! -d "$script_directory" ]; then
     mkdir -p "$script_directory" || handle_error 1 "Failed to create script directory"
 fi
 
-# Download the HTTP script if it doesn't exist
-if [ ! -f "$script_directory/$http_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "$script_directory/$http_script" && chmod +x "$script_directory/$http_script"
+
+# Download the MQTT script if it doesn't exist and replace if it does
+if [ -f "$script_directory/$mqtt_script" ]; then
+    rm "$script_directory/$mqtt_script"
 fi
 
-# Download the MQTT script if it doesn't exist
-if [ ! -f "$script_directory/$mqtt_script" ]; then
-    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
-fi
+download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
+
 
 rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory
