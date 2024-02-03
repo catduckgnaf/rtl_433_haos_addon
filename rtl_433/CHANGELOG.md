@@ -1,3 +1,7 @@
+## [2024.2.1] - 2/3/2024
+
+Work done to intergrate discovery with filtering, WIP
+
 ## [2023.1.1] - 11/22/2023
 
 Added custom command support, as well as working http api. In addition to supporting legacy mqtt.
