@@ -26,9 +26,4 @@ options:
 
 schema:
   rtl_433_conf_file: "str?"
-  host: "str?"
-  port: int?
   discovery: bool?
-  discovery_prefix: "str?"
-  discovery_interval: int?
-  discovery_ids: int?
