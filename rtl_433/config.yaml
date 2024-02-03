@@ -23,7 +23,7 @@ options:
   discovery_topic: "devices=rtl_433/9b13b3f4-rtl433/devices[/type][/model][/subtype][/channel][/id],events=rtl_433/9b13b3f4-rtl433/events,states=rtl_433/9b13b3f4-rtl43"
   discovery_prefix: "rtl_433_discovery"
   discovery_interval: 600
-  discovery_ids: false
+  discovery_ids: 23
 
 schema:
   rtl_433_conf_file: "str?"

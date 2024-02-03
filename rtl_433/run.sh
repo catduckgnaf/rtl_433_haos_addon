@@ -11,7 +11,7 @@ discovery_port=$(bashio::config 'port')
 discovery_topic=$(bashio::config 'topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
-discovery_ids=$(bashio::config 'discovery_id')
+discovery_ids=$(bashio::config 'discovery_ids')
 
 
 # Initialize an array to store process IDs
