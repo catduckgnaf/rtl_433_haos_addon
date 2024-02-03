@@ -1,4 +1,7 @@
 configuration:
+  discovery:
+    name: Discovery 
+    description: Currently this does not work, but I am working on it!
   discovery_host:
     name: Discovery Host 
     description: These options only affect the discovery script if enabled. 

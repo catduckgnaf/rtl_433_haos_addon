@@ -23,7 +23,6 @@ options:
   discovery_prefix: "rtl_433_discovery"
   discovery_interval: 600
   discovery: false
-  discovery_ids: 
 
 schema:
   rtl_433_conf_file: "str?"
