@@ -33,7 +33,10 @@ ENV LANG C.UTF-8
 
 RUN apk add --no-cache libusb \
     librtlsdr \
-    sed
+    sed \
+    python3 \
+    py3-pip
+RUN pip3 install paho-mqtt
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
