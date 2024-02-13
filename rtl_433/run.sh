@@ -7,11 +7,11 @@ conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
 discovery=$(bashio::config 'discovery')
-discovery_host=$(bashio::config 'host')
-discovery_port=$(bashio::config 'port')
-discovery_user=$(bashio::config 'user')
-discovery_password=$(bashio::config 'password')
-discovery_topic=$(bashio::config 'topic')
+discovery_host=$(bashio::config 'discovery_host')
+discovery_port=$(bashio::config 'discovery_port')
+discovery_user=$(bashio::config 'discovery_user')
+discovery_password=$(bashio::config 'discovery_password')
+discovery_topic=$(bashio::config 'discovery_topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_ids')
@@ -72,7 +72,7 @@ echo "Starting rtl_433 with $conf_file located in $conf_directory"
 # discovery
 if $discovery; then
     echo "Starting discovery script"
-    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -D "$discovery_prefix" -i $discovery_interval --ids "$discovery_ids" $other_args
+    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -D "$discovery_prefix" -R $discovery_topic -i $discovery_interval --ids "$discovery_ids" $other_args
     rtl_433_pids+=($!)
 fi
 
