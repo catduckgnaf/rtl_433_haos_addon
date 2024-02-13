@@ -9,11 +9,13 @@ mqtt_script="rtl_433_mqtt_hass.py"
 discovery=$(bashio::config 'discovery')
 discovery_host=$(bashio::config 'host')
 discovery_port=$(bashio::config 'port')
+discovery_user=$(bashio::config 'user')
+discovery_password=$(bashio::config 'password')
 discovery_topic=$(bashio::config 'topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_ids')
-
+other_args="${other_args-}"
 
 # Initialize an array to store process IDs
 rtl_433_pids=()
@@ -68,9 +70,9 @@ rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # discovery
-if [ "$discovery" = true ]; then
+if $discovery; then
     echo "Starting discovery script"
-    python3 -u "$script_directory/$mqtt_script" -H "$discovery_host" -p "$discovery_port" -T -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
+    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -D "$discovery_prefix" -i $discovery_interval --ids "$discovery_ids" $other_args
     rtl_433_pids+=($!)
 fi
 
