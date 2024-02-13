@@ -22,9 +22,11 @@ options:
   discovery_port: 1883
   discovery_user: ""
   discovery_password: ""
+  discovery_topic: "rtl_433/+/events"
   discovery_prefix: "homeassistant"
   discovery_interval: 600
-  discovery_ids: 23
+  discovery_ids: ""
+  other_args: ""
 
 schema:
   rtl_433_conf_file: "str?"
