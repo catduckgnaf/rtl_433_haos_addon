@@ -1,5 +1,7 @@
 
-## [2024.2.2] - 2/3/2024
+## [2024.2.9] - 2/8/2024
+
+Discovery works. I consider this the first "Stable" release. More work to be done.
 
 ## [2024.2.2] - 2/3/2024
 
