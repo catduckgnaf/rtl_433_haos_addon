@@ -35,9 +35,8 @@ RUN apk add --no-cache libusb \
     librtlsdr \
     sed \
     python3 \
-    py3-pip
-    py3-paho-mqtt
-RUN pip3 install paho-mqtt
+    py3-pip \
+    py3-paho-mqt
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
