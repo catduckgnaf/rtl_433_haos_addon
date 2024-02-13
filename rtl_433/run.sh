@@ -68,9 +68,9 @@ rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # discovery
-if  $discovery=true; then
+if [ "$discovery" = true ]; then
     echo "Starting discovery script"
-    python3 -u "$script_directory/$mqtt_script" -H "$discovery_host" -p "$discovery_port" -R "$discovery_topic" -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
+    python3 -u "$script_directory/$mqtt_script" -H "$discovery_host" -p "$discovery_port" -T -D "$discovery_prefix" -i "$discovery_interval" --ids "$discovery_ids"
     rtl_433_pids+=($!)
 fi
 
