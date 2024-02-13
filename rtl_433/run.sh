@@ -63,7 +63,7 @@ if [ -f "$script_directory/$mqtt_script" ]; then
     rm "$script_directory/$mqtt_script"
 fi
 
-download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
+download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
 
 
 # discovery
