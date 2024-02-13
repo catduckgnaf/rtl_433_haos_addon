@@ -63,8 +63,11 @@ if [ -f "$script_directory/$mqtt_script" ]; then
     rm "$script_directory/$mqtt_script"
 fi
 
-download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script"
+download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 
+
+rtl_433 -c "$conf_directory/$conf_file" -F log
+echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # discovery
 if [ "$discovery" = true ]; then
@@ -72,9 +75,6 @@ if [ "$discovery" = true ]; then
     python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -D "$discovery_prefix" -R $discovery_topic -i $discovery_interval --ids "$discovery_ids" $other_args
     rtl_433_pids+=($!)
 fi
-
-rtl_433 -c "$conf_directory/$conf_file" -F log
-echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # Instead of waiting for any process to finish, loop indefinitely
 while true; do
