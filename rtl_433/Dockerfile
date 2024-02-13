@@ -36,7 +36,7 @@ RUN apk add --no-cache libusb \
     sed \
     python3 \
     py3-pip \
-    py3-paho-mqt
+    py3-paho-mqtt
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
