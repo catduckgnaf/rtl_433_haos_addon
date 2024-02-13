@@ -11,29 +11,3 @@ configuration:
   discovery_ids: 
     name: Discovery ID
     description: Despite the name, only one works at this time
-
-  rtl_device_id_1:
-    name: Select Protocol 1
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_2:
-    name: Select Protocol 2
-    description: Add your protocol ID to use with rtl_433
-  rtl_device_id_3:
-    name: Select Protocol 3
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_4: 
-    name: Select Protocol 4
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_5:
-    name: Select Protocol 5
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_6:
-    name: Select Protocol 6
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_7:
-    name: Select Protocol 7
-    description: add your protocol ID to use with rtl_433
-  rtl_device_id_8:
-    name: Select Protocol 8
-    description: add your protocol ID to use with rtl_433
-
