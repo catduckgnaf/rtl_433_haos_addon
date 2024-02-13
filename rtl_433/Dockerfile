@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.16
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.19
 FROM $BUILD_FROM as builder
 
 ENV LANG C.UTF-8
@@ -36,13 +36,11 @@ RUN apk add --no-cache libusb \
     sed \
     python3 \
     py3-pip
+    py3-paho-mqtt
 RUN pip3 install paho-mqtt
 WORKDIR /root
 COPY --from=builder /build/root/ /
 
-# Run script
-# COPY /config/rtl_433/scripts/rtl_433_mqtt_hass.py /
-# RUN chmod a+x /rtl_433_mqtt_hass.py
 COPY run.sh /
 RUN chmod a+x /run.sh
 
