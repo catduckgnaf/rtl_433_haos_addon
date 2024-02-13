@@ -15,7 +15,7 @@ discovery_topic=$(bashio::config 'discovery_topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_ids')
-other_args="${other_args-}"
+other_args=$(bashio::config 'other_args')
 
 # Initialize an array to store process IDs
 rtl_433_pids=()
