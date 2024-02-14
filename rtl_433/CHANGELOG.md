@@ -1,4 +1,11 @@
 
+
+## [2024.2.10] - 2/14/2024
+
+switched to ghcr.io fully and bumpbed base to 3.19
+added retain by default for discovery script
+
+
 ## [2024.2.9] - 2/8/2024
 
 Discovery works. I consider this the first "Stable" release. More work to be done.
