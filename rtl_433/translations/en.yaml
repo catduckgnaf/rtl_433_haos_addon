@@ -9,5 +9,5 @@ configuration:
     name: Discovery Port 
     description: These options only affect the discovery script if enabled. 
   discovery_ids: 
-    name: Discovery ID
+    name: Discovery IDs
     description: Enter multiple discovery ID separated by a space with no quotation marks.
