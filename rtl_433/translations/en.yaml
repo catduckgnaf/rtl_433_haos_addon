@@ -10,4 +10,4 @@ configuration:
     description: These options only affect the discovery script if enabled. 
   discovery_ids: 
     name: Discovery ID
-    description: Enter multiple discovery ID seperated by a space with no quotation marks.
+    description: Enter multiple discovery ID separated by a space with no quotation marks.
