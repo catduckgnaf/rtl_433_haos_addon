@@ -26,9 +26,9 @@ options:
   discovery_prefix: "homeassistant"
   discovery_interval: 600
   other_args: ""
-  discovery_ids: ""
+  discovery_ids: 42 69
 
 schema:
   rtl_433_conf_file: "str?"
   discovery: bool?
-  discovery_ids: int?
+  discovery_ids: "str?"
