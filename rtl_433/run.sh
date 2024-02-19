@@ -15,9 +15,30 @@ discovery_topic=$(bashio::config 'discovery_topic')
 discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_ids')
+discovery_log_level=$(bashio::config 'discovery_log_level')
 other_args=$(bashio::config 'other_args')
 
-# Initialize an array to store process IDs
+# other args
+if bashio::config.true "discovery_retain"; then
+    other_args+=" --retain"
+fi
+if bashio::config.true "discovery_force_update"; then
+    other_args+=" --force_update"
+fi
+# This is an optional parameter and we don't want to overwrite the defaults
+device_topic_suffix=$(bashio::config "device_topic_suffix")
+if [[ -n $device_topic_suffix ]]; then
+    other_args+=" -T '${device_topic_suffix}'"
+fi
+
+
+if [[ $discovery_log_level == "quiet" ]]; then
+    other_args+=" --quiet"
+fi
+if [[ $discovery_log_level == "debug" ]]; then
+    other_args+=" --debug"
+fi
+
 rtl_433_pids=()
 
 # Function to handle errors and log them
@@ -70,9 +91,11 @@ rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # discovery
+
+
 if [ "$discovery" = true ]; then
     echo "Starting discovery script"
-    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -D "$discovery_prefix" -R $discovery_topic -i $discovery_interval --ids $discovery_ids -r
+    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -R "$discovery_topic" -D "$discovery_prefix" -i $discovery_interval $other_args --ids $discovery_ids
     rtl_433_pids+=($!)
 fi
 
