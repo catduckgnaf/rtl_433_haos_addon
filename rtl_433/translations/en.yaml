@@ -11,3 +11,6 @@ configuration:
   discovery_ids: 
     name: Discovery IDs
     description: Enter multiple discovery ID separated by a space with no quotation marks. (required only if discovery is enabled)
+  discovery_log_level: 
+    name: Discovery Logging
+    description: Set the logging level for the discovery script.
