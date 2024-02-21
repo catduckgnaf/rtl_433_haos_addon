@@ -30,7 +30,6 @@ options:
   discovery_interval: 600
   discovery_ids: 24 69
   discovery_log_level: "default"
-
   other_args: ""
 
 schema:
