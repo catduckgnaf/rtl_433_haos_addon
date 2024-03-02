@@ -1,5 +1,10 @@
 
 
+
+## 2024.3.0
+
+Added back support for older chipsets. To help from others running old add-on
+
 ## [2024.2.10] - 2/14/2024
 
 switched to ghcr.io fully and bumpbed base to 3.19

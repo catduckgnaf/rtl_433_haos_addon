@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [armv7, aarch64, amd64]
+        arch: [armv7, aarch64, amd64, armhf, i386]
         addon: [rtl_433]
 
     steps:
