@@ -76,6 +76,10 @@ if [ -f "$log_directory/$output_logfile" ]; then
 
     if [ "$file_size" -gt 1048576 ]; then  # 1048576 bytes = 1MB
         mv -f "$log_directory/$output_logfile" "$log_directory/$output_logfile.bak" || handle_error 1 "Failed to rename $output_logfile to $output_logfile.bak"
+
+#Now we remove the original file after renaming
+        rm -f "$log_directory/$output_logfile" || handle_error 2 "Failed to remove the original file $output_logfile"
+        
     else
         echo "$log_directory/$output_logfile is not greater than 1MB. Skipping the renaming."
     fi
