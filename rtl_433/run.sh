@@ -6,6 +6,7 @@ log_directory="/config/rtl_433/logs"
 conf_file="rtl_433.conf"
 http_script="rtl_433_http_ws.py"
 mqtt_script="rtl_433_mqtt_hass.py"
+output_logfile="output.json"
 discovery=$(bashio::config 'discovery')
 discovery_host=$(bashio::config 'discovery_host')
 discovery_port=$(bashio::config 'discovery_port')
@@ -61,6 +62,16 @@ download_file() {
 # Check if the configuration directory exists and create it if not
 if [ ! -d "$conf_directory" ]; then
     mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
+fi
+
+if [ -f "$output_logfile" ]; then
+    file_size=$(du -b "$output_logfile" | cut -f1)
+
+    if [ "$file_size" -gt 1048576 ]; then  # 1048576 bytes = 1MB
+        mv -f "$output_logfile" "$output_logfile.bak" || handle_error 1 "Failed to rename $output_logfile to $output_logfile.bak"
+    else
+        echo "$output_logfile is not greater than 1MB. Skipping the renaming."
+    fi
 fi
 
 # Check if the log directory exists and create it if not
