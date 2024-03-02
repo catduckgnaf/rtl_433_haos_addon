@@ -64,19 +64,21 @@ if [ ! -d "$conf_directory" ]; then
     mkdir -p "$conf_directory" || handle_error 1 "Failed to create config directory"
 fi
 
-if [ -f "$output_logfile" ]; then
-    file_size=$(du -b "$output_logfile" | cut -f1)
-
-    if [ "$file_size" -gt 1048576 ]; then  # 1048576 bytes = 1MB
-        mv -f "$output_logfile" "$output_logfile.bak" || handle_error 1 "Failed to rename $output_logfile to $output_logfile.bak"
-    else
-        echo "$output_logfile is not greater than 1MB. Skipping the renaming."
-    fi
-fi
 
 # Check if the log directory exists and create it if not
 if [ ! -d "$log_directory" ]; then
     mkdir -p "$log_directory" || handle_error 1 "Failed to create log directory"
+fi
+
+# Check if the output log file exists and rename it if it's greater than 1MB
+if [ -f "$log_directory/$output_logfile" ]; then
+    file_size=$(du -b "$log_directory/$output_logfile" | cut -f1)
+
+    if [ "$file_size" -gt 1048576 ]; then  # 1048576 bytes = 1MB
+        mv -f "$log_directory/$output_logfile" "$log_directory/$output_logfile.bak" || handle_error 1 "Failed to rename $output_logfile to $output_logfile.bak"
+    else
+        echo "$log_directory/$output_logfile is not greater than 1MB. Skipping the renaming."
+    fi
 fi
 
 # Download the configuration file if it doesn't exist
