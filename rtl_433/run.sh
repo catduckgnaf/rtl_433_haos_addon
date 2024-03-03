@@ -74,7 +74,7 @@ fi
 if [ -f "$log_directory/$output_logfile" ]; then
     file_size=$(du -b "$log_directory/$output_logfile" | cut -f1)
 
-    if [ "$file_size" -gt 1048576 ]; then  # 1048576 bytes = 1MB
+    if [ "$file_size" -gt 5242880 ]; then  # 5242880 bytes = 5MB
         mv -f "$log_directory/$output_logfile" "$log_directory/$output_logfile.bak" || handle_error 1 "Failed to rename $output_logfile to $output_logfile.bak"
 
 #Now we remove the original file after renaming
