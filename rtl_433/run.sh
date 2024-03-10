@@ -79,7 +79,7 @@ if [ -f "$log_directory/$output_logfile" ]; then
 
 #Now we remove the original file after renaming
         rm -f "$log_directory/$output_logfile" || handle_error 2 "Failed to remove the original file $output_logfile"
-        
+
     else
         echo "$log_directory/$output_logfile is not greater than 1MB. Skipping the renaming."
     fi
@@ -108,7 +108,12 @@ rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # discovery
-
+if [ "$discovery" = true ]; then
+    echo "Discovery is enabled."
+    echo "Enabled IDs for discovery: $discovery_ids"
+else
+    echo "Discovery is not enabled."
+fi
 
 if [ "$discovery" = true ]; then
     echo "Starting discovery script"
