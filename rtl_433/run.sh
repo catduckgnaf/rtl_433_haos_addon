@@ -110,11 +110,20 @@ echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 
 # Starting discovery script with logging
+
 if [ "$discovery" = true ]; then
-    echo "Starting discovery script" | tee -a "$discovery_log_file"
-    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -R "$discovery_topic" -D "$discovery_prefix" -i $discovery_interval --ids $discovery_ids >> "$discovery_log_file" 2>&1 &
+    echo "Starting discovery script"
+    python3 -u "$script_directory/$mqtt_script" \
+    -H $discovery_host \
+    -p $discovery_port \
+    -u "$discovery_user" \
+    -P "$discovery_password" \
+    -R "$discovery_topic" \
+    -D "$discovery_prefix" \
+    -i $discovery_interval \
+    --ids $discovery_ids 1>&1 2>&1 &
     rtl_433_pids+=($!)
-    echo "Discovery script started with PID: ${rtl_433_pids[-1]}" | tee -a "$discovery_log_file"
+    echo "Discovery script started with PID: ${rtl_433_pids[-1]}"
 fi
 
 # Instead of waiting for any process to finish, loop indefinitely
