@@ -17,6 +17,7 @@ discovery_prefix=$(bashio::config 'discovery_prefix')
 discovery_interval=$(bashio::config 'discovery_interval')
 discovery_ids=$(bashio::config 'discovery_ids')
 discovery_log_level=$(bashio::config 'discovery_log_level')
+discovery_log_file="$log_directory/discovery_script.log"
 other_args=$(bashio::config 'other_args')
 
 # other args
@@ -107,18 +108,13 @@ download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scr
 rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
-# discovery
-if [ "$discovery" = true ]; then
-    echo "Discovery is enabled."
-    echo "Enabled IDs for discovery: $discovery_ids"
-else
-    echo "Discovery is not enabled."
-fi
 
+# Starting discovery script with logging
 if [ "$discovery" = true ]; then
-    echo "Starting discovery script"
-    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -R "$discovery_topic" -D "$discovery_prefix" -i $discovery_interval --ids $discovery_ids
+    echo "Starting discovery script" | tee -a "$discovery_log_file"
+    python3 -u "$script_directory/$mqtt_script" -H $discovery_host -p $discovery_port -u "$discovery_user" -P "$discovery_password" -R "$discovery_topic" -D "$discovery_prefix" -i $discovery_interval --ids $discovery_ids >> "$discovery_log_file" 2>&1 &
     rtl_433_pids+=($!)
+    echo "Discovery script started with PID: ${rtl_433_pids[-1]}" | tee -a "$discovery_log_file"
 fi
 
 # Instead of waiting for any process to finish, loop indefinitely
