@@ -111,7 +111,7 @@ echo "Starting rtl_433 with $conf_file located in $conf_directory"
 
 # Starting discovery script with logging
 
-if [ "$discovery" = true ]; then
+if [ "$discovery" == true ]; then
     echo "Starting discovery script"
     python3 -u "$script_directory/$mqtt_script" \
     -H $discovery_host \
