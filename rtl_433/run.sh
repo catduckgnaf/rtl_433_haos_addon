@@ -107,10 +107,7 @@ download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scr
 # Starting discovery script with logging
 
 if [ "$discovery" == true ]; then
-    echo "Starting rtl_433 with $conf_file located in $conf_directory"  
-    echo "Discovery is ENABLED"
-    echo "Discovery script started with PID: ${rtl_433_pids[-1]}"
-    rtl_433 -c "$conf_directory/$conf_file" -F log && 
+    echo "Discovery is ENABLED, Starting on protocols $discovery_ids"
     python3 -u "$script_directory/$mqtt_script" \
     -H $discovery_host \
     -p $discovery_port \
@@ -124,16 +121,7 @@ if [ "$discovery" == true ]; then
 
 else
     echo "Discovery is not enabled or not configured"
-    echo "Starting rtl_433 with $conf_file located in $conf_directory"
-    rtl_433 -c "$conf_directory/$conf_file" -F log
-
 fi
 
-
-
-
-
-# Instead of waiting for any process to finish, loop indefinitely
-while true; do
-    sleep infinity
-done
+echo "Starting rtl_433 with $conf_file located in $conf_directory"
+rtl_433 -c "$conf_directory/$conf_file" -F log
