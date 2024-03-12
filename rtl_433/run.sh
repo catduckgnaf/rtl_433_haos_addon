@@ -124,6 +124,9 @@ if [ "$discovery" == true ]; then
     --ids $discovery_ids 1>&1 2>&1 &
     rtl_433_pids+=($!)
     echo "Discovery script started with PID: ${rtl_433_pids[-1]}"
+
+else
+    echo "Discovery is not enabled or not configured"
 fi
 
 # Instead of waiting for any process to finish, loop indefinitely
