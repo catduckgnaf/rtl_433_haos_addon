@@ -104,9 +104,8 @@ fi
 
 download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "$script_directory/$mqtt_script" && chmod +x "$script_directory/$mqtt_script"
 
-
-rtl_433 -c "$conf_directory/$conf_file" -F log
 echo "Starting rtl_433 with $conf_file located in $conf_directory"
+rtl_433 -c "$conf_directory/$conf_file" -F log
 
 
 # Starting discovery script with logging
