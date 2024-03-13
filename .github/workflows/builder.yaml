@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         arch: [armv7, aarch64, amd64, armhf, i386]
-        addon: [rtl_433, rtl_433_discovery]
+        addon: [rtl_433]
 
     steps:
     - name: Inject slug/short variables
