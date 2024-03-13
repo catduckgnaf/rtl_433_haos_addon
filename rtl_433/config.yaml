@@ -19,23 +19,7 @@ usb: true
 udev: true
 options:
   rtl_433_conf_file: "/config/rtl_433/rtl_433.conf"
-  discovery: true
-  discovery_retain: true
-  discovery_force_update: true
-  discovery_host: "core-mosquitto"
-  discovery_port: 1883
-  discovery_user: ""
-  discovery_password: ""
-  discovery_topic: "rtl_433/+/events"
-  discovery_prefix: "homeassistant"
-  device_topic_suffix: ""
-  discovery_interval: 600
-  discovery_ids: 23 69
-  discovery_log_level: "default"
-  other_args: ""
+
 
 schema:
   rtl_433_conf_file: "str?"
-  discovery: bool?
-  discovery_ids: "str?"
-  discovery_log_level: "list(default|quiet|debug)"
