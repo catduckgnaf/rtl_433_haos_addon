@@ -109,11 +109,11 @@ download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scr
 if [ "$discovery" == true ]; then
     echo "Discovery is ENABLED, Starting on protocols $discovery_ids"
     python3 -u "$script_directory/$mqtt_script" -H "$discovery host" -p 1883 -u "$discovery_user" -P "$discovery_password" -R "$discovery_topic" -D "$discovery_prefix" -i 600 --ids $discovery_ids
-    rtl_433_pids+=($!)
+    rtl_433_pids+=($!) & rtl_433 -c "$conf_directory/$conf_file" -F log &
 
 else
     echo "Discovery is not enabled or not configured"
+    echo "Starting rtl_433 with $conf_file located in $conf_directory"
+    rtl_433 -c "$conf_directory/$conf_file" -F log
 fi
 
-echo "Starting rtl_433 with $conf_file located in $conf_directory"
-rtl_433 -c "$conf_directory/$conf_file" -F log
