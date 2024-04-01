@@ -38,8 +38,13 @@ if [ -f "${log_directory}/${output_logfile}" ]; then
     fi
 fi
 
-# Download configuration and scripts if they don't exist or replace if they do
-download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "${conf_directory}/${conf_file}"
+
+# Download the configuration file if it doesn't exist
+if [ ! -f "$conf_directory/$conf_file" ]; then
+    download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/config/rtl_433_catduck_template.conf" "$conf_directory/$conf_file"
+fi
+
+# Download scripts if they don't exist or replace if they do
 download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_mqtt_hass.py" "${script_directory}/${mqtt_script}" && chmod +x "${script_directory}/${mqtt_script}"
 download_file "https://raw.githubusercontent.com/catduckgnaf/rtl_433_ha/main/scripts/rtl_433_http_ws.py" "${script_directory}/${http_script}" && chmod +x "${script_directory}/${http_script}"
 
