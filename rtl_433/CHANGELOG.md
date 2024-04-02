@@ -1,8 +1,4 @@
 
-## 2024.4.0
-
-Removed Discovery, as it was not working as expected. 
-Added Option for Websocket output, to plan for future websocket integration. (Help needed! contact me if you can help with this)
 
 
 ## 2024.3.0
