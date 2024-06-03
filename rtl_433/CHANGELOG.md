@@ -1,4 +1,9 @@
 
+## 2024.6.0
+
+Recompiled to sync with latest changes.
+No integration as well. Have not had time to work on it.
+Helped appreciated
 
 
 ## 2024.3.0
