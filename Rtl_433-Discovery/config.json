@@ -1,0 +1,40 @@
+{
+  "name": "rtl_433 discovery",
+  "version": "0.1.1",
+  "slug": "rtl433discovery",
+  "description": "discovery of rtl_433 device",
+  "url": "https://github.com/tds04/Rtl_433-Discovery",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "init": false,
+  "options": {
+    "mqtt_host": "",
+    "mqtt_port": 1883,
+    "mqtt_user": "",
+    "mqtt_password": "",
+    "mqtt_retain": true,
+    "rtl_topic": "rtl_433/+/events",
+    "device_topic_suffix": "",
+    "discovery_prefix": "homeassistant",
+    "discovery_interval": 60,
+    "discovery_ids": "",
+    "force_update": false,
+    "log_level": "debug"
+  },
+  "schema": {
+    "mqtt_host": "str?",
+    "mqtt_port": "int?",
+    "mqtt_user": "str?",
+    "mqtt_password": "str?",
+    "mqtt_retain": "bool",
+    "rtl_topic": "str",
+    "device_topic_suffix": "str?",
+    "discovery_prefix": "str",
+    "discovery_interval": "int",
+    "discovery_ids": "str?", 
+    "force_update": "bool",
+    "log_level": "list(default|quiet|debug)"
+  },
+  "services": ["mqtt:want"]
+}
